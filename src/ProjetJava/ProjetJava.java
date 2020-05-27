@@ -18,7 +18,7 @@ public class ProjetJava {
          DAO<Cours> coursDao = new CoursDAO();
     for(int i = 1; i < 5; i++){
       Cours cours = coursDao.find(i);
-      System.out.println("Elève N°" +cours.getiD()+cours.getNom());
+      System.out.println("Cours N°" +cours.getiD()+cours.getNom());
     }
     }
     

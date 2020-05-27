@@ -25,11 +25,11 @@ public class CoursDAO extends DAO<Cours> {
      Cours cours = new Cours();      
 
     try {
-        PreparedStatement stmt = connect.prepareStatement("SELECT * FROM cours");
+        PreparedStatement stmt = connect.prepareStatement("SELECT * FROM cours WHERE ID="+id);
         ResultSet rs=stmt.executeQuery();
-
+        
       if(rs.first())
-        cours = new Cours(id,rs.getString("nom_cours"));
+        cours = new Cours(id,rs.getString("NOM"));
 
     } catch (SQLException e) {
       e.printStackTrace();

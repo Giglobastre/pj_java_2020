@@ -27,28 +27,19 @@ public abstract class DAO<T>{
     public DAO(){
             try {
                 try {
-                    Class.forName("com.mysql.jdbc.Driver");
+                    Class.forName("org.mariadb.jdbc.Driver");
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 // db parameters - ptest is the name of the database
-                String url = "jdbc:mysql://localhost:3308/java2020";
+                String url = "jdbc:mariadb://localhost/java2020";
                 String user = "root";
                 String password = "";
-
                 // create a connection to the database
                 connect = DriverManager.getConnection(url, user, password);
             }catch (SQLException err) {
                 System.out.println(err.getMessage());
-            } finally {
-                try {
-                    if (connect != null) {
-                        connect.close();
-                    }
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-                }
-            }
+            } 
     }
        public abstract T find(int id);
 }

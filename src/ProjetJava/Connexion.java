@@ -39,7 +39,7 @@ public class Connexion {
         // chargement driver "com.mysql.jdbc.Driver"
         Class.forName("com.mysql.jdbc.Driver");
 
-        String urlDatabase = "jdbc:mysql://localhost:3308/pj_java2020";
+        String urlDatabase = "jdbc:mysql://localhost/pj_java2020";
 
         //création d'une connexion JDBC à la base 
         conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
