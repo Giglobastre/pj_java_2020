@@ -1,25 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ProjetJava;
 
-/**
- *
- * Contrôle l'interrogation de la BDD dans la Fenetre
- *
- * @author segado
- */
 public class Controleur {
 
-    /**
-     *
-     * une methode principal (main) pour lancer l'application
-     *
-     * @param s
-     */
     public static void main(String[] s) {
+        //module de connexion
+        
+        
         // creation de la fenetre
-        Fenetre f = new Fenetre();
+        Fenetre_Connexion f = new Fenetre_Connexion();
     }
 }
