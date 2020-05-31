@@ -1,5 +1,7 @@
 package ProjetJava;
 
+import VIEW.Fenetre_Connexion;
+
 public class Controleur {
 
     public static void main(String[] s) {
