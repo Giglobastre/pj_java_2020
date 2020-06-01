@@ -28,7 +28,7 @@ public class Connexion {
                 Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             // db parameters - ptest is the name of the database
-        String url = "jdbc:mariadb://localhost/java2020";
+        String url = "jdbc:mariadb://localhost:3306/java2020";
         String user = "root";
         String password = "";
         // create a connection to the database
@@ -38,14 +38,22 @@ public class Connexion {
         }
     }
     
-    public boolean verif(String email, String pwd){
+    public boolean verif(String identifiant, String pwd){
         boolean testCo=false;
-        
+        final String sep="\\.";
+        String prenomNom[]=identifiant.split(sep,2);
+        String prenom=prenomNom[0];
+        String nom=prenomNom[1];
         try {
-        PreparedStatement stmt = m_co.prepareStatement("SELECT * FROM UTILISATEURS WHERE EMAIL="+email+"AND PASSWD="+pwd);
+        PreparedStatement stmt = m_co.prepareStatement("SELECT PASSWD FROM utilisateur WHERE NOM=? AND PRENOM=?");
+        stmt.setString(1,prenom);
+        stmt.setString(2,nom);
         ResultSet rs=stmt.executeQuery(); 
-        if(rs.first())
-            testCo=true;
+        while(rs.next()){
+            if(rs.getString("PASSWD").equals(pwd)){
+                testCo=true;
+            }
+        }
         } catch (SQLException e) {
             e.printStackTrace();
         }

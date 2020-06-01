@@ -73,7 +73,7 @@ public Fenetre_Connexion(Connexion co) {
     private JPanel buildPanelInterface1() {
 
         welcome = new JLabel("welcome !");
-        Username = new JLabel("Username");
+        Username = new JLabel("Nom.Prenom");
         passwordco = new JLabel("password");
 
         //font
@@ -156,12 +156,12 @@ public Fenetre_Connexion(Connexion co) {
         public void actionPerformed(ActionEvent e) {
             if(m_co_db.verif(ID.getText(), password.getText())){
                 //si connexion a marché
-                
+                //si etudiant ou prof interface edt, si admin vers inteface admin
                 dispose();
             }else if(!m_co_db.verif(ID.getText(), password.getText())){
                 //Message d'erreur
-                JOptionPane jop3 = new JOptionPane();
-                jop3.showMessageDialog(null, "Mauvais email ou mot de passe", "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+                JOptionPane jop = new JOptionPane();
+                jop.showMessageDialog(null, "Mauvais identifiant ou mot de passe", "Erreur de connection", JOptionPane.ERROR_MESSAGE);
                 dispose();
                 Fenetre_Connexion fco=new Fenetre_Connexion(m_co_db);
             }
