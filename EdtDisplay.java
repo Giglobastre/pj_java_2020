@@ -22,10 +22,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- *
- * @author hugo7
- */
 public class EdtDisplay extends JFrame {
 
     private JPanel[] tabpanel = new JPanel[63];
