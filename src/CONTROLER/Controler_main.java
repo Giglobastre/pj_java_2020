@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package CONTROLER;
-import MODEL.Connexion;
-import VIEW.Fenetre_Connexion;
+import MODEL.*;
+import VIEW.*;
 /**
  *
  * @author Kenny-portable
@@ -14,6 +14,7 @@ public class Controler_main {
     public static void main(String[] args) {
         //connexion to our service
         Connexion co=new Connexion();
-        Fenetre_Connexion fco=new Fenetre_Connexion(co);
+        //Fenetre_Connexion fco=new Fenetre_Connexion(co);
+        Fenetre_Admin fad=new Fenetre_Admin();
     }
 }

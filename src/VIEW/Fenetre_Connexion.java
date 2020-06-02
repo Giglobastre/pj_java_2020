@@ -19,8 +19,8 @@ public class Fenetre_Connexion extends JFrame{
     //classe connexion perso, pas celle de sql
     private Connexion m_co_db=new Connexion();
     
-    final private int window_Width = 500;
-    final private int window_Height = 400;
+    final private   int         window_Width = 500;
+    final private   int         window_Height = 400;
 
     private JPanel panelMessage;
     private JPanel panelID;
