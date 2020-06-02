@@ -7,10 +7,7 @@ package ProjetJava;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author hugo7
- */
+
 public class CoursAffichage {
     private String date;
     private String HD;
