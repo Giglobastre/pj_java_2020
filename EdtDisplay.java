@@ -18,6 +18,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -33,26 +34,33 @@ public class EdtDisplay extends JFrame {
     private JButton[] semaine = new JButton[52];
     private JLabel[] espace = new JLabel[100];
     private int groupe;
-   private ArrayList<Salle> listesalle = new ArrayList<>();
-         private  ArrayList<Utilisateur> listeutilisateur = new ArrayList<>();
-         private  ArrayList<Seance> listeseance = new ArrayList<>();
-         private  ArrayList<Seance_groupes> listegroupe = new ArrayList<>();
-       private    ArrayList<Seance_enseignants> listeprof = new ArrayList<>();
-       private    ArrayList<Cours> listecours = new ArrayList<>();
-       private    ArrayList<Etudiant> listeetudiant = new ArrayList<>();
-       private    ArrayList<Seance_salles> listessalles = new ArrayList<>();
-       
-    public EdtDisplay(int groupe,ArrayList<Salle> listesalle,ArrayList<Utilisateur> listeutilisateur,ArrayList<Seance> listeseance,ArrayList<Seance_groupes> listegroupe, ArrayList<Seance_enseignants> listeprof,ArrayList<Cours> listecours,ArrayList<Etudiant> listeetudiant,ArrayList<Seance_salles> listessalles) {
-        tabpanel = new JPanel[63];
+    private ArrayList<Salle> listesalle = new ArrayList<>();
+    private ArrayList<Utilisateur> listeutilisateur = new ArrayList<>();
+    private ArrayList<Seance> listeseance = new ArrayList<>();
+    private ArrayList<Seance_groupes> listegroupe = new ArrayList<>();
+    private ArrayList<Seance_enseignants> listeprof = new ArrayList<>();
+    private ArrayList<Cours> listecours = new ArrayList<>();
+    private ArrayList<Etudiant> listeetudiant = new ArrayList<>();
+    private ArrayList<Seance_salles> listessalles = new ArrayList<>();
+    private int valsemaine;
+    ArrayList<CoursAffichage> listee;
 
-        setLayout(new GridLayout(9, 7));
+    public EdtDisplay(ArrayList<CoursAffichage> liste,int semaine)
 
+    {
+        Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+int hauteur = (int)tailleEcran.getHeight();
+int largeur = (int)tailleEcran.getWidth();
+        listee=liste;
         setTitle("What do you want to do ");
-        setSize(800, 1000);
+        setLayout(new GridLayout(9, 7));
+        setSize(largeur,hauteur);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        valsemaine=semaine;
         buildPanel();
         buildheure();
-        buildcours(groupe,listesalle, listeutilisateur, listeseance, listegroupe,  listeprof, listecours, listeetudiant,listessalles);
+        buildsemaine(valsemaine);
+        buildcours(listee);
         for (int i = 0; i < 63; i++) {
             add(tabpanel[i]);
         }
@@ -69,7 +77,7 @@ public class EdtDisplay extends JFrame {
         nomjours[3] = new JLabel("Jeudi");
         nomjours[4] = new JLabel("Vendredi");
         nomjours[5] = new JLabel("Samedi");
-        for (int i = 0; i < 100; i++) {
+       /* for (int i = 0; i < 100; i++) {
             if (i < 52) {
                 String nom;
                 nom = Integer.toString(i);
@@ -77,10 +85,10 @@ public class EdtDisplay extends JFrame {
 
             }
             espace[i] = new JLabel(" ");
-        }
+        }*/
 
         int j = 0;
-        int s=0;
+        int s = 0;
         for (int i = 0; i < 63; i++) {
 
             tabpanel[i] = new JPanel();
@@ -90,43 +98,9 @@ public class EdtDisplay extends JFrame {
             if (i < 7) {
                 tabpanel[i].setBackground(new Color(167, 213, 254));
             }
-            if (i>7&&i<14) {
-                tabpanel[i].setLayout(new GridBagLayout());
-                GridBagConstraints c = new GridBagConstraints();
-                c.gridx = 0;
-                c.gridy = 0;
-
-                c.fill = GridBagConstraints.BOTH;
-                c.weightx = 0.25;
-                tabpanel[i].add(semaine[s], c);
-                s++;
-
-                c.fill = GridBagConstraints.HORIZONTAL;
-                c.weightx = 0.25;
-                c.gridx = 1;
-                c.gridy = 0;
-                tabpanel[i].add(semaine[s], c);
-                s++;
-
-                c.fill = GridBagConstraints.BOTH;
-                c.weightx = 0.25;
-                c.gridx = 2;
-                c.gridy = 0;
-                tabpanel[i].add(semaine[s], c);
-                s++;
-
-                c.fill = GridBagConstraints.BOTH;
-                c.weightx = 0.25;
-                c.gridx = 3;
-                c.gridy = 0;
-                tabpanel[i].add(semaine[s], c);
-                s++;
-
-                c.fill = GridBagConstraints.BOTH;
-                c.weightx = 1;
-                c.gridx = 2;
-                c.gridy = 2;
-                tabpanel[i].add(nomjours[j], c);
+            if (i > 7 && i < 14) {
+               
+                tabpanel[i].add(nomjours[j]);
                 j++;
             }
 
@@ -175,106 +149,246 @@ public class EdtDisplay extends JFrame {
         tabpanel[56].setLayout(new GridLayout(2, 1));
         tabpanel[56].add(heure[12]);
         tabpanel[56].add(heure[13]);
-       // tabpanel[15].setBackground(new Color(112, 213, 254));
+        // tabpanel[15].setBackground(new Color(112, 213, 254));
 
     }
-private void buildcours(int groupe,ArrayList<Salle> listesalle,ArrayList<Utilisateur> listeutilisateur,ArrayList<Seance> listeseance,ArrayList<Seance_groupes> listegroupe, ArrayList<Seance_enseignants> listeprof,ArrayList<Cours> listecours,ArrayList<Etudiant> listeetudiant,ArrayList<Seance_salles> listessalles) 
-{
-        ArrayList<Integer> id = new ArrayList<>();
-    for(int i=0;i<listegroupe.size();i++)
-        {
-            if(listegroupe.get(i).getID_GROUPE()==groupe)
-            {
-                id.add(listegroupe.get(i).getID_SEANCE());
-                        
-            }
+//neeed ID groupe de l'é"tudiant et la semaine a afficher
+    
+ private void buildcours(ArrayList<CoursAffichage> liste) {
+        
+     for(int i=0;i<liste.size();i++)
+     {
+            afficours(liste.get(i).getHD(), liste.get(i).getDate(),liste.get(i).getNom(),liste.get(i).getProf(),liste.get(i).getSalle(),liste.get(i).getCapacite(),liste.get(i).getSite());
+     }
+ 
+ }
+    
+ private void buildsemaine(int semaineg)
+ {    JLabel[] tab = new JLabel[10];
+ 
+ for(int i=0;i<10;i++)
+ {
+     tab[i]= new JLabel("");
+ }
+ String sem=Integer.toString(semaineg);
+ tabpanel[7].setLayout(new GridLayout(2, 3));
+ JLabel semainenom = new JLabel("Semaine");
+ JLabel numsemaine = new JLabel(sem);
+ JButton petit = new JButton("<<");
+  JButton grand = new JButton(">>");
+  grand.addActionListener(new Grand());
+  petit.addActionListener(new Petit());
+ numsemaine.setHorizontalAlignment(SwingConstants.CENTER);
+    tabpanel[7].add(tab[0]);
+    tabpanel[7].add(semainenom);
+    tabpanel[7].add(tab[1]);
+    tabpanel[7].add(petit);
+    tabpanel[7].add(numsemaine);
+   tabpanel[7].add(grand);
+    
+      
+ 
+     
+     
+ }
+ 
+ private void afficours(String HD, String Date, String cours, String nomprof, String salle, int capacite,String site) {
+        final String SEPARATEUR = "/";
+        String conte = Date;
+
+        String mots[] = conte.split(SEPARATEUR);
+
+      
+        int jour = Integer.parseInt(mots[0]);
+        int mois = Integer.parseInt(mots[1]);
+        int annee = Integer.parseInt(mots[2]);
+
+        LocalDate localDate = LocalDate.of(annee, mois, jour);
+
+        //Getting the day of week for a given date
+        java.time.DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+        if (dayOfWeek.equals(localDate.getDayOfWeek().MONDAY)) {
+            builaffheure(HD,1,cours,nomprof,salle,capacite,site);
         }
-    
-for(int i=0;i<listeseance.size();i++)
-{
-    String nom="";
-    String nomsalle="";
-    String nomprof="";
-    int capacite=0;
-    if(listeseance.get(i).getSEMAINE()==51)
-    {
-    for( int j=0;j<id.size();j++)
-    {
-        if(listeseance.get(i).getID()==id.get(j))
-            {///////bon TD Bonne semaine Bon seance
-        //System.out.println(listeseance.get(i).getHEURE_DEBUT());
-            //recherche d'autre informations
-            //for(int k=0;k<listeseance.size();k++)//plus d ecours que salle::::::::::::::::::::::::::::::::::::::::::
-            //{
-                if(listecours.get(j).getiD()==listeseance.get(i).getID_COURS())
-                {
-                    nom=listecours.get(j).getNom();
-                    System.out.println(nom);
-                }
-                System.out.println(listegroupe.get(i).getID_SEANCE());
-                    //System.out.println("ll");
-                    for(int l=0;l<listeutilisateur.size();l++)
-                    {
-                        if(listeutilisateur.get(l).getID()==listeprof.get(j).getID_ENSEIGANT())
-                        {
-                           nomprof=listeutilisateur.get(l).getNOM();
-                             System.out.println(nomprof);
-                        }
-                    }
-                     nom=listecours.get(j).getNom();
-                    System.out.println(nom);
-                
-                
-                if(j<listesalle.size())
-                {
-                
-                if(listesalle.get(j).getID()==listeseance.get(i).getID_COURS());
-                {
-                     nomsalle=listesalle.get(j).getNOM();
-                  capacite=listesalle.get(j).getCAPACITE();
-                    System.out.println(nomsalle);
-                   
-                   
-                }
-                } 
-            //}
-        afficours(listeseance.get(i).getHEURE_DEBUT(),nom,nomprof,nomsalle,capacite);
-    }
+        if (dayOfWeek.equals(localDate.getDayOfWeek().TUESDAY)) {
+            builaffheure(HD,2,cours,nomprof,salle,capacite,site);
         }
-    } 
-   //if((listeseance.get(id.get(i)).getSEMAINE())==51)
-       //System.out.println("ff");
-}
-}
-
-private void afficours(String HD,String cours,String nomprof,String salle,int capacité)
-{
-    JLabel[] nomjours = new JLabel[6];
-    for(int i=0;i<6;i++)
-    {
-        nomjours[i] = new JLabel("");
+        if (dayOfWeek.equals(localDate.getDayOfWeek().WEDNESDAY)) {
+            builaffheure(HD,3,cours,nomprof,salle,capacite,site);
+        }
+        if (dayOfWeek.equals(localDate.getDayOfWeek().THURSDAY)) {
+            builaffheure(HD,4,cours,nomprof,salle,capacite,site);
+        }
+        if (dayOfWeek.equals(localDate.getDayOfWeek().FRIDAY)) {
+            builaffheure(HD,5,cours,nomprof,salle,capacite,site);
+        }
+        if (dayOfWeek.equals(localDate.getDayOfWeek().SATURDAY)) {
+            builaffheure(HD,6,cours,nomprof,salle,capacite,site);
+        }
     }
-    JLabel nom=new JLabel(cours);
-    JLabel prof=new JLabel(nomprof+" "+salle);
-     JLabel prof2=new JLabel("ING3");
+
+    private void builaffheure(String Heure, int jour, String cours, String nomprof, String salle, int capacite,String site) {
+        JLabel nom = new JLabel(cours);
+        JLabel prof = new JLabel(nomprof + " " + salle);
+        JLabel prof2 = new JLabel(site);
+        int i=0;
+        if(jour==1)
+            i=0;
+         if(jour==2)
+            i=1;
+          if(jour==3)
+            i=2;
+           if(jour==4)
+            i=3;
+            if(jour==5)
+            i=4;
+             if(jour==6)
+            i=5;
+        
+            if (Heure.equals("8:00")) {
+            tabpanel[15+i].setLayout(new GridLayout(3, 1));
+
+            nom.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[15+i].add(nom);
+
+            prof.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[15+i].add(prof);
+
+            prof2.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[15+i].add(prof2);
+            tabpanel[15+i].setBackground(Color.red);
+        }
+            if (Heure.equals("10:15")) {
+            tabpanel[22+i].setLayout(new GridLayout(3, 1));
+
+            nom.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[22+i].add(nom);
+
+            prof.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[22+i].add(prof);
+
+            prof2.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[22+i].add(prof2);
+            tabpanel[22+i].setBackground(Color.red);
+        }
+            if (Heure.equals("12:00")) {
+            tabpanel[29+i].setLayout(new GridLayout(3, 1));
+
+            nom.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[29+i].add(nom);
+
+            prof.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[29+i].add(prof);
+
+            prof2.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[29+i].add(prof2);
+            tabpanel[29+i].setBackground(Color.red);
+        }
+            if (Heure.equals("13:45")) {
+            tabpanel[36+i].setLayout(new GridLayout(3, 1));
+
+            nom.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[36+i].add(nom);
+
+            prof.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[36+i].add(prof);
+
+            prof2.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[36+i].add(prof2);
+            tabpanel[36+i].setBackground(Color.red);
+        }
+       
+        if (Heure.equals("15:30")) {
+            tabpanel[43+i].setLayout(new GridLayout(3, 1));
+
+            nom.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[43+i].add(nom);
+
+            prof.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[43+i].add(prof);
+
+            prof2.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[43+i].add(prof2);
+            tabpanel[43+i].setBackground(Color.red);
+        }
+        if (Heure.equals("17:15")) {
+            tabpanel[50+i].setLayout(new GridLayout(3, 1));
+
+            nom.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[50+i].add(nom);
+
+            prof.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[50+i].add(prof);
+
+            prof2.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[50+i].add(prof2);
+            tabpanel[50+i].setBackground(Color.red);
+        }
+        if (Heure.equals("19:00")) {
+            tabpanel[57+i].setLayout(new GridLayout(3, 1));
+
+            nom.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[57+i].add(nom);
+
+            prof.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[57+i].add(prof);
+
+            prof2.setHorizontalAlignment(SwingConstants.CENTER);
+            tabpanel[57+i].add(prof2);
+            tabpanel[57+i].setBackground(Color.red);
+        }
+    }
     
-    if(HD.equals("10:00"))
-    {    tabpanel[16].setLayout(new GridLayout(3, 1));
-    
-     nom.setHorizontalAlignment(SwingConstants.CENTER);
-        tabpanel[16].add(nom);
-        
-    prof.setHorizontalAlignment(SwingConstants.CENTER);
-        tabpanel[16].add(prof);
-        
-       prof2.setHorizontalAlignment(SwingConstants.CENTER);
-        tabpanel[16].add(prof2);
-        tabpanel[16].setBackground(Color.red);
-        
+private class Grand implements ActionListener {
+
+        /**
+         * The actionPerformed method executes when the user clicks on the
+         * Calculate button.
+         *
+         * @param e The event object.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+           //emaineg=semaineg+1;
+            //tabcust.add(new Customer("huh", "ji"));
+            
+           Controlleuredt controle=new Controlleuredt();
+           controle.setSemaine(valsemaine+1);
+           controle.msg();
+           controle.lance();
+                   dispose();
+           //System.out.println("semaine"+controle.getSemaine());
+           //CoursAffichage courrr=new CoursAffichage();
+          // listee=courrr.affichageetudiant(1, valsemaine, listesalle, listeutilisateur, listeseance, listegroupe, listeprof, listecours, listeetudiant, listessalles, listesite);
+            //new ProjetJava();
+        }
+
+    }
+
+private class Petit implements ActionListener {
+
+        /**
+         * The actionPerformed method executes when the user clicks on the
+         * Calculate button.
+         *
+         * @param e The event object.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+           //emaineg=semaineg+1;
+            //tabcust.add(new Customer("huh", "ji"));
+            
+           Controlleuredt controle=new Controlleuredt();
+           controle.setSemaine(valsemaine-1);
+           controle.msg();
+           controle.lance();
+           
+           dispose();
+           //System.out.println("semaine"+controle.getSemaine());
+           //CoursAffichage courrr=new CoursAffichage();
+          // listee=courrr.affichageetudiant(1, valsemaine, listesalle, listeutilisateur, listeseance, listegroupe, listeprof, listecours, listeetudiant, listessalles, listesite);
+            //new ProjetJava();
+        }
 
     }
 }
-    
-
-}
-
