@@ -54,7 +54,7 @@ public class Controlleuredt {
          ssalle.chargement(listessalles);
          site.chargement(listesite);
          CoursAffichage courrr=new CoursAffichage();
-         liste=courrr.affichageetudiant(1, semaine, listesalle, listeutilisateur, listeseance, listegroupe, listeprof, listecours, listeetudiant, listessalles, listesite);
+         liste=courrr.affichageclasse(2, semaine, listesalle, listeutilisateur, listeseance, listegroupe, listeprof, listecours, listeetudiant, listessalles, listesite);
          
          }     
 
