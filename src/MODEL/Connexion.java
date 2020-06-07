@@ -38,26 +38,77 @@ public class Connexion {
     }
     
     public boolean verif(String identifiant, String pwd){
+        
         boolean testCo=false;
+        
+        if (identifiant.indexOf('.')!=-1){
+            final String sep="\\.";
+            String prenomNom[]=identifiant.split(sep,2);
+            String prenom=prenomNom[0];
+            String nom=prenomNom[1];
+            try {
+            PreparedStatement stmt = m_co.prepareStatement("SELECT PASSWD,DROIT FROM utilisateur WHERE NOM=? AND PRENOM=?");
+            stmt.setString(1,prenom);
+            stmt.setString(2,nom);
+            ResultSet rs=stmt.executeQuery(); 
+            while(rs.next()){
+                if(rs.getString("PASSWD").equals(pwd)){
+                    type=rs.getInt("DROIT");
+                    testCo=true;
+                }
+            }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return  testCo;
+    }
+    
+    public int getidco(String nomprenom){
+        int id=0;
         final String sep="\\.";
-        String prenomNom[]=identifiant.split(sep,2);
+        String prenomNom[]=nomprenom.split(sep,2);
         String prenom=prenomNom[0];
         String nom=prenomNom[1];
         try {
-        PreparedStatement stmt = m_co.prepareStatement("SELECT PASSWD,DROIT FROM utilisateur WHERE NOM=? AND PRENOM=?");
+        PreparedStatement stmt = m_co.prepareStatement("SELECT ID FROM utilisateur WHERE NOM=? AND PRENOM=?");
         stmt.setString(1,prenom);
         stmt.setString(2,nom);
         ResultSet rs=stmt.executeQuery(); 
         while(rs.next()){
-            if(rs.getString("PASSWD").equals(pwd)){
-                type=rs.getInt("DROIT");
-                testCo=true;
-            }
+            id=rs.getInt("ID");
         }
+       
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return  testCo;
+        return  id;
+    }
+      public int getidcoeleve(String nomprenom){
+        int id=0;
+        final String sep="\\.";
+        String prenomNom[]=nomprenom.split(sep,2);
+        String prenom=prenomNom[0];
+        String nom=prenomNom[1];
+        try {
+        PreparedStatement stmt = m_co.prepareStatement("SELECT ID FROM utilisateur WHERE NOM=? AND PRENOM=?");
+        stmt.setString(1,prenom);
+        stmt.setString(2,nom);
+        ResultSet rs=stmt.executeQuery(); 
+        while(rs.next()){
+            id=rs.getInt("ID");
+            PreparedStatement stmt2 = m_co.prepareStatement("SELECT * FROM etudiant WHERE ID_UTILISATEUR="+rs.getInt("ID"));
+            ResultSet rs2=stmt2.executeQuery(); 
+            while(rs2.next())
+            {
+                id=rs2.getInt("ID_GROUPE");
+            }
+        }
+       
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  id;
     }
     
     public int getM_IDgroupe() {

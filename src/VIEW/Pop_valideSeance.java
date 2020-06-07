@@ -91,7 +91,7 @@ public class Pop_valideSeance extends JFrame{
                 jop.showMessageDialog(null, "Cours non trouvé", "Echec", JOptionPane.ERROR_MESSAGE);
             }else if (res==1){
                 JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "Cours validé", "Reussite", JOptionPane.ERROR_MESSAGE);
+                jop.showMessageDialog(null, "Cours validé", "Reussit", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

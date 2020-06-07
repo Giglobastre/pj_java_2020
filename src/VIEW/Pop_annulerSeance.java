@@ -91,7 +91,7 @@ public class Pop_annulerSeance extends JFrame{
                 jop.showMessageDialog(null, "Cours non trouvé", "Echec", JOptionPane.ERROR_MESSAGE);
             }else if (res==1){
                 JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "Cours annulé", "Reussite", JOptionPane.ERROR_MESSAGE);
+                jop.showMessageDialog(null, "Cours annulé", "Reussit", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

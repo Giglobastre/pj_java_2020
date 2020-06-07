@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Kenny-portable
@@ -18,19 +19,23 @@ import java.util.GregorianCalendar;
 public class Controler_main {
     public static void main(String[] args) {
         Connexion co=new Connexion();
-        //Fenetre_Connexion fco=new Fenetre_Connexion(co);
-        //Controlleuredt control=new Controlleuredt();
-        //control.msg();
-        //control.lanceclasse();
-          
-Calendar calendar = new GregorianCalendar();
-
-LocalDate localDate = LocalDate.now();
-//calendar.setTime(trialTime);     
-LocalDate date = LocalDate.of(2020, 06,05);
-    if ( date.isBefore(localDate) ) {
-      System.out.println("Week number:" + 
-    calendar.get(Calendar.WEEK_OF_YEAR));
+        
+       Fenetre_Connexion fco=new Fenetre_Connexion(co);
+      
+        //Controlleuredt con=new Controlleuredt();
+       // control.msg(2);
+        //control.lanceclasse(2);
+         
+             
+         
+            
+  //Controlleuredt con=new Controlleuredt();
+      //con.msgrecap(7,"26/05/2020","27/05/2020");
+       //con.msg(1);
+ 
+//con.lanceetudiant();
+      //con.lanceprof();
+      //con.lanceprofrecap();
 }
 
 
@@ -40,4 +45,4 @@ LocalDate date = LocalDate.of(2020, 06,05);
 
 
 
-}
+

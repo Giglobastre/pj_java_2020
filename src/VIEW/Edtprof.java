@@ -32,15 +32,18 @@ import java.util.Scanner;
  *
  * @author hugo7
  */
-public class Edtetudiant extends JFrame {
+public class Edtprof extends JFrame {
 
     private JPanel[] tabpanel = new JPanel[63];
     private JLabel[] nomjours = new JLabel[6];
     private JLabel[] heure = new JLabel[14];
     private JButton[] semaine = new JButton[52];
     private JButton egb;
+    private JButton recher;
     private JLabel[] espace = new JLabel[100];
     private JTextField egtf;
+    private JTextField datedebut;
+    private JTextField datefin;
     private int varr = 0, mid;
     private int var2 = 0;
     private int varr1 = 0;
@@ -56,7 +59,7 @@ public class Edtetudiant extends JFrame {
     private int valsemaine;
     ArrayList<CoursAffichage> listee;
 
-    public Edtetudiant(ArrayList<CoursAffichage> liste, int semaine, int id) {
+    public Edtprof(ArrayList<CoursAffichage> liste, int semaine, int id) {
         mid = id;
         Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int hauteur = (int) tailleEcran.getHeight();
@@ -137,7 +140,7 @@ public class Edtetudiant extends JFrame {
         heure[12] = new JLabel("19h00");
         heure[13] = new JLabel("20h30");
         //Build groupe nr
-        JLabel entrezgroupe = new JLabel("Saisir l'ID de la salle :");
+        JLabel entrezgroupe = new JLabel("Saisir l'id sa la salle :");
         egtf = new JTextField(15);
         
         egb = new JButton("Recherche");
@@ -146,6 +149,26 @@ public class Edtetudiant extends JFrame {
         tabpanel[6].add(entrezgroupe);
         tabpanel[6].add(egtf);
         tabpanel[6].add(egb);
+        
+        datedebut=new JTextField(15);
+        JLabel recherche=new JLabel("Date de debut");
+        recher=new JButton("recherche");
+        recher.addActionListener(new Recher());
+        tabpanel[0].setLayout(new GridLayout(3, 1));
+        tabpanel[0].add(recherche);
+        tabpanel[0].add(datedebut);
+        tabpanel[0].add(recher);
+        datefin=new JTextField(15);
+        JLabel re=new JLabel("Date fin ");
+        JLabel es=new JLabel(" ");
+        tabpanel[1].setLayout(new GridLayout(3, 1));
+        tabpanel[1].add(re);
+        tabpanel[1].add(datefin);
+        tabpanel[1].add(es);
+        
+        JLabel titre= new JLabel ("PLANNING PROF");
+        titre.setHorizontalAlignment(SwingConstants.CENTER);
+        tabpanel[3].add(titre);
 
         tabpanel[14].setLayout(new GridLayout(2, 1));
         tabpanel[14].add(heure[0]);
@@ -269,7 +292,7 @@ public class Edtetudiant extends JFrame {
             i = 5;
         }
 
-       if (Heure.equals("08:30")) {
+        if (Heure.equals("08:30")) {
             tabpanel[15 + i].setLayout(new GridLayout(4, 1));
 
             nom.setHorizontalAlignment(SwingConstants.CENTER);
@@ -466,6 +489,7 @@ if (cours.equals("Elec")) {
             }
         }
     }
+
     private class Grand implements ActionListener {
 
         /**
@@ -482,7 +506,7 @@ if (cours.equals("Elec")) {
             Controlleuredt controle = new Controlleuredt();
             controle.setSemaine(valsemaine + 1);
             controle.msg(mid);
-            controle.lanceetudiant();
+            controle.lanceprof();
             dispose();
            //System.out.println("semaine"+controle.getSemaine());
             //CoursAffichage courrr=new CoursAffichage();
@@ -508,7 +532,7 @@ if (cours.equals("Elec")) {
             Controlleuredt controle = new Controlleuredt();
             controle.setSemaine(valsemaine - 1);
             controle.msg(mid);
-            controle.lanceetudiant();
+            controle.lanceprof();
             dispose();
 
            //System.out.println("semaine"+controle.getSemaine());
@@ -518,7 +542,37 @@ if (cours.equals("Elec")) {
         }
 
     }
+ private class Recher implements ActionListener {
 
+        /**
+         * The actionPerformed method executes when the user clicks on the
+         * Calculate button.
+         *
+         * @param e The event object.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            //emaineg=semaineg+1;
+            //tabcust.add(new Customer("huh", "ji"));
+            /* Source http://week-number.net/programming/week-number-in-java.html */
+           // Controlleuredt controle = new Controlleuredt();
+           // controle.setSemaine(valsemaine - 1);
+           // controle.msg(mid);
+            //controle.lanceprof();
+            Controlleuredt controle = new Controlleuredt();
+            System.out.println("mmm"+datedebut.getText()+datefin.getText()+mid);
+            controle.msgrecap(mid,datedebut.getText(),datefin.getText());
+            
+            controle.lanceprofrecap(mid);
+            
+
+           //System.out.println("semaine"+controle.getSemaine());
+            //CoursAffichage courrr=new CoursAffichage();
+            // listee=courrr.affichageetudiant(1, valsemaine, listesalle, listeutilisateur, listeseance, listegroupe, listeprof, listecours, listeetudiant, listessalles, listesite);
+            //new ProjetJava();
+        }
+
+    }
     private class Egb implements ActionListener {
 
         /**
@@ -534,8 +588,8 @@ if (cours.equals("Elec")) {
 
             Controlleuredt controle = new Controlleuredt();
             controle.msg(y);
-            
-            controle.lanceclasse(mid);
+            System.out.println(mid);
+            controle.lanceetudiantprof(mid);
             //dispose();
         }
     }

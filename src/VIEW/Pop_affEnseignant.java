@@ -101,7 +101,7 @@ public class Pop_affEnseignant extends JFrame{
                 jop.showMessageDialog(null, "Seance n'existe pas", "Echec", JOptionPane.ERROR_MESSAGE);
             }else if (res==10){
                 JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "Affectation reussie", "Reussite", JOptionPane.ERROR_MESSAGE);
+                jop.showMessageDialog(null, "Affectation reussie", "Reussit", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

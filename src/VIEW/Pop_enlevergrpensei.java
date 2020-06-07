@@ -102,7 +102,7 @@ Admin m_adm;
                 jop.showMessageDialog(null, "Groupe ou ensiegnant non affecté a cette seance", "Echec", JOptionPane.ERROR_MESSAGE);
             }else if(res==2){
                 JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "Reussite", "Reussite", JOptionPane.ERROR_MESSAGE);
+                jop.showMessageDialog(null, "Reussite", "Reussit", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

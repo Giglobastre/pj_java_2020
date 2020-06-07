@@ -5,6 +5,7 @@
  */
 package MODEL;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -12,11 +13,12 @@ import java.util.ArrayList;
  * @author hugo7
  */
 public class CoursAffichage {
+
     private String date;
     private String HD;
     private String salle;
     private String site;
-   private String nom;
+    private String nom;
     private String groupe;
     private ArrayList< String> prof;
     private ArrayList< String> salletab;
@@ -27,35 +29,35 @@ public class CoursAffichage {
     public CoursAffichage() {
     }
 
-    public CoursAffichage(String date, String HD, ArrayList<String> salletab, String site,String nom,  String groupe, ArrayList<String> prof,int capacite,ArrayList<String>groupetab) {
+    public CoursAffichage(String date, String HD, ArrayList<String> salletab, String site, String nom, String groupe, ArrayList<String> prof, int capacite, ArrayList<String> groupetab) {
         this.date = date;
         this.HD = HD;
         this.salletab = salletab;
         this.site = site;
-      this.nom=nom;
+        this.nom = nom;
         this.groupe = groupe;
         this.prof = prof;
-        this.capacite=capacite;
-        this.groupetab=groupetab;
+        this.capacite = capacite;
+        this.groupetab = groupetab;
      //   semaine=51;
-        
+
     }
 
-    public CoursAffichage(String date, String HD, String salle, String site,String nom,  String groupe, ArrayList<String> prof,int capacite,ArrayList<String>groupetab) {
+    public CoursAffichage(String date, String HD, String salle, String site, String nom, String groupe, ArrayList<String> prof, int capacite, ArrayList<String> groupetab) {
         this.date = date;
         this.HD = HD;
         this.salle = salle;
         this.site = site;
-      this.nom=nom;
+        this.nom = nom;
         this.groupe = groupe;
         this.prof = prof;
-        this.capacite=capacite;
-        this.groupetab=groupetab;
+        this.capacite = capacite;
+        this.groupetab = groupetab;
      //   semaine=51;
-        
+
     }
-    public ArrayList<CoursAffichage> affichageetudiant(int groupe,int semaine, ArrayList<Salle> listesalle, ArrayList<Utilisateur> listeutilisateur, ArrayList<Seance> listeseance, ArrayList<Seance_groupes> listegroupe, ArrayList<Seance_enseignants> listeprof, ArrayList<Cours> listecours, ArrayList<Etudiant> listeetudiant, ArrayList<Seance_salles> listessalles,ArrayList<Site> listesite,ArrayList<Groupe> groupetab)
-    {
+
+    public ArrayList<CoursAffichage> affichageetudiant(int groupe, int semaine, ArrayList<Salle> listesalle, ArrayList<Utilisateur> listeutilisateur, ArrayList<Seance> listeseance, ArrayList<Seance_groupes> listegroupe, ArrayList<Seance_enseignants> listeprof, ArrayList<Cours> listecours, ArrayList<Etudiant> listeetudiant, ArrayList<Seance_salles> listessalles, ArrayList<Site> listesite, ArrayList<Groupe> groupetab) {
         ArrayList<Integer> id = new ArrayList<>();
         ArrayList<String> nomproftab = new ArrayList<>();
         ArrayList<String> nomgrptab = new ArrayList<>();
@@ -72,101 +74,87 @@ public class CoursAffichage {
             String nomsalle = "";
             String nomprof = "";
             int capacite = 0;
-            String nomgrp="";
-            String site="";
+            String nomgrp = "";
+            String site = "";
             //nomproftab.clear();
             if (listeseance.get(i).getSEMAINE() == semaine) {
                 ///bonne semaine
                 for (int j = 0; j < id.size(); j++) { //parcourir pour le nombre de bonne seance
                     if (listeseance.get(i).getID() == id.get(j)) {///////bon TD Bonne semaine Bon seance
-                       System.out.println("id seance"+listeseance.get(i).getID());
+                        System.out.println("id seance" + listeseance.get(i).getID());
 //System.out.println(listeseance.get(i).getHEURE_DEBUT());
-                       // System.out.println("j"+ id.size());
+                        // System.out.println("j"+ id.size());
                         //recherche d'autre informations
                         //for(int k=0;k<listeseance.size();k++)//plus d ecours que salle::::::::::::::::::::::::::::::::::::::::::
-                        //{
-                        for(int m=0;m<listecours.size();m++)
-                        {
-                        if (listecours.get(m).getiD() == listeseance.get(i).getID_COURS()) {
-                            nom = listecours.get(m).getNom();
-                            System.out.println(nom);
-                        }}
+                        //
+                        capacite = 0;
+                        for (int m = 0; m < listecours.size(); m++) {
+                            if (listecours.get(m).getiD() == listeseance.get(i).getID_COURS()) {
+                                nom = listecours.get(m).getNom();
+                                System.out.println(nom);
+                            }
+                        }
                         //System.out.println(listegroupe.get(i).getID_SEANCE());
-                       
+
                         /*for (int l = 0; l < listeutilisateur.size(); l++) {
                              
                             
-                          System.out.println("ll"+listeprof.get(i).getID_ENSEIGANT()+"iduti"+listeutilisateur.get(l).getID());
-                            if (listeutilisateur.get(l).getID() == listeprof.get(i).getID_ENSEIGANT()) {
-                                nomprof = listeutilisateur.get(l).getNOM();
-                               // nomproftab.add(listeutilisateur.get(l).getNOM());
-                                System.out.println(nomprof);
-                            }
-                        }*/
-                        
-                        
-                        for(int l=0;l<listeprof.size();l++)
-                        {
-                            if(listeprof.get(l).getID_SEANCE()==id.get(j))
-                            {
-                                for(int v=0;v<listeutilisateur.size();v++)
-                                {
-                                    if(listeutilisateur.get(v).getID()==listeprof.get(l).getID_ENSEIGANT())
-                                    {
-                                    nomprof = nomprof+listeutilisateur.get(v).getNOM()+" ";
-                               
-                                     //System.out.println(nomprof);
+                         System.out.println("ll"+listeprof.get(i).getID_ENSEIGANT()+"iduti"+listeutilisateur.get(l).getID());
+                         if (listeutilisateur.get(l).getID() == listeprof.get(i).getID_ENSEIGANT()) {
+                         nomprof = listeutilisateur.get(l).getNOM();
+                         // nomproftab.add(listeutilisateur.get(l).getNOM());
+                         System.out.println(nomprof);
+                         }
+                         }*/
+                        for (int l = 0; l < listeprof.size(); l++) {
+                            if (listeprof.get(l).getID_SEANCE() == id.get(j)) {
+                                for (int v = 0; v < listeutilisateur.size(); v++) {
+                                    if (listeutilisateur.get(v).getID() == listeprof.get(l).getID_ENSEIGANT()) {
+                                        nomprof = nomprof + listeutilisateur.get(v).getNOM() + " ";
+
+                                        //System.out.println(nomprof);
                                     }
                                 }
                             }
                         }
-                        for(int l=0;l<listegroupe.size();l++)
-                        {
-                            if(listegroupe.get(l).getID_SEANCE()==id.get(j))
-                            {
-                                for(int v=0;v<groupetab.size();v++)
-                                {
-                                    if(groupetab.get(v).getID()==listegroupe.get(l).getID_GROUPE())
-                                    {
-                                    nomgrp = nomgrp+groupetab.get(v).getNOM()+" ";
-                               
-                                    System.out.println(nomgrp);
+                        for (int l = 0; l < listegroupe.size(); l++) {
+                            if (listegroupe.get(l).getID_SEANCE() == id.get(j)) {
+                                for (int v = 0; v < groupetab.size(); v++) {
+                                    if (groupetab.get(v).getID() == listegroupe.get(l).getID_GROUPE()) {
+                                        nomgrp = nomgrp + groupetab.get(v).getNOM() + " ";
+
+                                        System.out.println(nomgrp);
                                     }
                                 }
                             }
                         }
-                        for(int l=0;l<listecours.size();l++)
-                        {
-                            if(listecours.get(l).getiD()==listeseance.get(i).getID_COURS())
-                            nom = listecours.get(l).getNom();
+                        for (int l = 0; l < listecours.size(); l++) {
+                            if (listecours.get(l).getiD() == listeseance.get(i).getID_COURS()) {
+                                nom = listecours.get(l).getNom();
+                            }
                         }
-                        
+
                        // System.out.println(nom);
-                       
-                        for(int e=0;e<listessalles.size();e++)
-                        {
-                            
+                        for (int e = 0; e < listessalles.size(); e++) {
+
                                 //System.out.println(listesalle.get(j).getID());
-                               // System.out.println(listeseance.get(i).getID_COURS());
+                            // System.out.println(listeseance.get(i).getID_COURS());
                             if (listessalles.get(e).getID_SEANCE() == listeseance.get(i).getID())//bon id salle
                             {
-                         
-                                for(int t=0;t<listesalle.size();t++)
-                                {
-                                    if(listesalle.get(t).getID()==listessalles.get(e).getID_SALLE())
-                                    {
-                                 nomsalle = nomsalle+listesalle.get(t).getNOM()+" ";
-                                //nomsalle = listesalle.get(t).getNOM();
-                                capacite = listesalle.get(t).getCAPACITE();
-                                System.out.println(nomsalle);
-                                for(int r=0;r<listesite.size();r++)
-                                {
-                                    if(listesite.get(r).getID()==listesalle.get(t).getID_SITE())
-                                        site=listesite.get(r).getNom();
-                                }
+
+                                for (int t = 0; t < listesalle.size(); t++) {
+                                    if (listesalle.get(t).getID() == listessalles.get(e).getID_SALLE()) {
+                                        nomsalle = nomsalle + listesalle.get(t).getNOM() + " ";
+                                        //nomsalle = listesalle.get(t).getNOM();
+                                        capacite = capacite + listesalle.get(t).getCAPACITE();
+                                        System.out.println(nomsalle);
+                                        for (int r = 0; r < listesite.size(); r++) {
+                                            if (listesite.get(r).getID() == listesalle.get(t).getID_SITE()) {
+                                                site = listesite.get(r).getNom();
+                                            }
+                                        }
                                     }
                                 }
-                                
 
                             }
                         }
@@ -175,22 +163,22 @@ public class CoursAffichage {
                         nomproftab.add(nomprof);
                         nomgrptab.add(nomgrp);
                         nomsalletab.add(nomsalle);
-                        nomprof="";
-                        nomgrp="";
-                        nomsalle="";
-                        affichage.add(new CoursAffichage(listeseance.get(i).getDATE(),listeseance.get(i).getHEURE_DEBUT(), nomsalletab,site,nom, "ING3", nomproftab,  capacite,nomgrptab));
-                        
+                        nomprof = "";
+                        nomgrp = "";
+                        nomsalle = "";
+                        affichage.add(new CoursAffichage(listeseance.get(i).getDATE(), listeseance.get(i).getHEURE_DEBUT(), nomsalletab, site, nom, "ING3", nomproftab, capacite, nomgrptab));
+                        capacite = 0;
                     }
                 }
             }
             //if((listeseance.get(id.get(i)).getSEMAINE())==51)
             //System.out.println("ff");
         }
-    
-    return affichage;
-            }
-public ArrayList<CoursAffichage> affichageprof(int idprof,int semaine, ArrayList<Salle> listesalle, ArrayList<Utilisateur> listeutilisateur, ArrayList<Seance> listeseance, ArrayList<Seance_groupes> listegroupe, ArrayList<Seance_enseignants> listeprof, ArrayList<Cours> listecours, ArrayList<Etudiant> listeetudiant, ArrayList<Seance_salles> listessalles,ArrayList<Site> listesite,ArrayList<Groupe> groupetab)
-    {
+
+        return affichage;
+    }
+
+    public ArrayList<CoursAffichage> affichageprof(int idprof, int semaine, ArrayList<Salle> listesalle, ArrayList<Utilisateur> listeutilisateur, ArrayList<Seance> listeseance, ArrayList<Seance_groupes> listegroupe, ArrayList<Seance_enseignants> listeprof, ArrayList<Cours> listecours, ArrayList<Etudiant> listeetudiant, ArrayList<Seance_salles> listessalles, ArrayList<Site> listesite, ArrayList<Groupe> groupetab) {
         ArrayList<Integer> id = new ArrayList<>();
         ArrayList<String> nomproftab = new ArrayList<>();
         ArrayList<String> nomgrptab = new ArrayList<>();
@@ -199,7 +187,7 @@ public ArrayList<CoursAffichage> affichageprof(int idprof,int semaine, ArrayList
         for (int i = 0; i < listeprof.size(); i++) {
             if (listeprof.get(i).getID_ENSEIGANT() == idprof) {////On cherche les ID des bonnes seances
                 id.add(listeprof.get(i).getID_SEANCE());
-                System.out.println(listegroupe.get(i).getID_SEANCE());
+//                System.out.println(listegroupe.get(i).getID_SEANCE());
             }
         }
         for (int i = 0; i < listeseance.size(); i++) {//parcours toute les eances
@@ -207,101 +195,86 @@ public ArrayList<CoursAffichage> affichageprof(int idprof,int semaine, ArrayList
             String nomsalle = "";
             String nomprof = "";
             int capacite = 0;
-            String nomgrp="";
-            String site="";
+            String nomgrp = "";
+            String site = "";
             //nomproftab.clear();
             if (listeseance.get(i).getSEMAINE() == semaine) {
                 ///bonne semaine
                 for (int j = 0; j < id.size(); j++) { //parcourir pour le nombre de bonne seance
                     if (listeseance.get(i).getID() == id.get(j)) {///////bon TD Bonne semaine Bon seance
-                       System.out.println("id seance"+listeseance.get(i).getID());
+                        System.out.println("id seance" + listeseance.get(i).getID());
 //System.out.println(listeseance.get(i).getHEURE_DEBUT());
-                       // System.out.println("j"+ id.size());
+                        // System.out.println("j"+ id.size());
                         //recherche d'autre informations
                         //for(int k=0;k<listeseance.size();k++)//plus d ecours que salle::::::::::::::::::::::::::::::::::::::::::
                         //{
-                        for(int m=0;m<listecours.size();m++)
-                        {
-                        if (listecours.get(m).getiD() == listeseance.get(i).getID_COURS()) {
-                            nom = listecours.get(m).getNom();
-                            System.out.println(nom);
-                        }}
+                        for (int m = 0; m < listecours.size(); m++) {
+                            if (listecours.get(m).getiD() == listeseance.get(i).getID_COURS()) {
+                                nom = listecours.get(m).getNom();
+                                System.out.println(nom);
+                            }
+                        }
                         //System.out.println(listegroupe.get(i).getID_SEANCE());
-                       
+
                         /*for (int l = 0; l < listeutilisateur.size(); l++) {
                              
                             
-                          System.out.println("ll"+listeprof.get(i).getID_ENSEIGANT()+"iduti"+listeutilisateur.get(l).getID());
-                            if (listeutilisateur.get(l).getID() == listeprof.get(i).getID_ENSEIGANT()) {
-                                nomprof = listeutilisateur.get(l).getNOM();
-                               // nomproftab.add(listeutilisateur.get(l).getNOM());
-                                System.out.println(nomprof);
-                            }
-                        }*/
-                        
-                        
-                        for(int l=0;l<listeprof.size();l++)
-                        {
-                            if(listeprof.get(l).getID_SEANCE()==id.get(j))
-                            {
-                                for(int v=0;v<listeutilisateur.size();v++)
-                                {
-                                    if(listeutilisateur.get(v).getID()==listeprof.get(l).getID_ENSEIGANT())
-                                    {
-                                    nomprof = nomprof+listeutilisateur.get(v).getNOM()+" ";
-                               
-                                     //System.out.println(nomprof);
+                         System.out.println("ll"+listeprof.get(i).getID_ENSEIGANT()+"iduti"+listeutilisateur.get(l).getID());
+                         if (listeutilisateur.get(l).getID() == listeprof.get(i).getID_ENSEIGANT()) {
+                         nomprof = listeutilisateur.get(l).getNOM();
+                         // nomproftab.add(listeutilisateur.get(l).getNOM());
+                         System.out.println(nomprof);
+                         }
+                         }*/
+                        for (int l = 0; l < listeprof.size(); l++) {
+                            if (listeprof.get(l).getID_SEANCE() == id.get(j)) {
+                                for (int v = 0; v < listeutilisateur.size(); v++) {
+                                    if (listeutilisateur.get(v).getID() == listeprof.get(l).getID_ENSEIGANT()) {
+                                        nomprof = nomprof + listeutilisateur.get(v).getNOM() + " ";
+
+                                        //System.out.println(nomprof);
                                     }
                                 }
                             }
                         }
-                        for(int l=0;l<listegroupe.size();l++)
-                        {
-                            if(listegroupe.get(l).getID_SEANCE()==id.get(j))
-                            {
-                                for(int v=0;v<groupetab.size();v++)
-                                {
-                                    if(groupetab.get(v).getID()==listegroupe.get(l).getID_GROUPE())
-                                    {
-                                    nomgrp = nomgrp+groupetab.get(v).getNOM()+" ";
-                               
-                                    System.out.println(nomgrp);
+                        for (int l = 0; l < listegroupe.size(); l++) {
+                            if (listegroupe.get(l).getID_SEANCE() == id.get(j)) {
+                                for (int v = 0; v < groupetab.size(); v++) {
+                                    if (groupetab.get(v).getID() == listegroupe.get(l).getID_GROUPE()) {
+                                        nomgrp = nomgrp + groupetab.get(v).getNOM() + " ";
+
+                                        System.out.println(nomgrp);
                                     }
                                 }
                             }
                         }
-                        for(int l=0;l<listecours.size();l++)
-                        {
-                            if(listecours.get(l).getiD()==listeseance.get(i).getID_COURS())
-                            nom = listecours.get(l).getNom();
+                        for (int l = 0; l < listecours.size(); l++) {
+                            if (listecours.get(l).getiD() == listeseance.get(i).getID_COURS()) {
+                                nom = listecours.get(l).getNom();
+                            }
                         }
-                        
+
                        // System.out.println(nom);
-                       
-                        for(int e=0;e<listessalles.size();e++)
-                        {
-                            
+                        for (int e = 0; e < listessalles.size(); e++) {
+
                                 //System.out.println(listesalle.get(j).getID());
-                               // System.out.println(listeseance.get(i).getID_COURS());
+                            // System.out.println(listeseance.get(i).getID_COURS());
                             if (listessalles.get(e).getID_SEANCE() == listeseance.get(i).getID())//bon id salle
                             {
-                         
-                                for(int t=0;t<listesalle.size();t++)
-                                {
-                                    if(listesalle.get(t).getID()==listessalles.get(e).getID_SALLE())
-                                    {
-                                 nomsalle = nomsalle+listesalle.get(t).getNOM()+" ";
-                                //nomsalle = listesalle.get(t).getNOM();
-                                capacite = listesalle.get(t).getCAPACITE();
-                                System.out.println(nomsalle);
-                                for(int r=0;r<listesite.size();r++)
-                                {
-                                    if(listesite.get(r).getID()==listesalle.get(t).getID_SITE())
-                                        site=listesite.get(r).getNom();
-                                }
+
+                                for (int t = 0; t < listesalle.size(); t++) {
+                                    if (listesalle.get(t).getID() == listessalles.get(e).getID_SALLE()) {
+                                        nomsalle = nomsalle + listesalle.get(t).getNOM() + " ";
+                                        //nomsalle = listesalle.get(t).getNOM();
+                                        capacite = listesalle.get(t).getCAPACITE();
+                                        System.out.println(nomsalle);
+                                        for (int r = 0; r < listesite.size(); r++) {
+                                            if (listesite.get(r).getID() == listesalle.get(t).getID_SITE()) {
+                                                site = listesite.get(r).getNom();
+                                            }
+                                        }
                                     }
                                 }
-                                
 
                             }
                         }
@@ -310,23 +283,22 @@ public ArrayList<CoursAffichage> affichageprof(int idprof,int semaine, ArrayList
                         nomproftab.add(nomprof);
                         nomgrptab.add(nomgrp);
                         nomsalletab.add(nomsalle);
-                        nomprof="";
-                        nomgrp="";
-                        nomsalle="";
-                        affichage.add(new CoursAffichage(listeseance.get(i).getDATE(),listeseance.get(i).getHEURE_DEBUT(), nomsalletab,site,nom, "ING3", nomproftab,  capacite,nomgrptab));
-                        
+                        nomprof = "";
+                        nomgrp = "";
+                        nomsalle = "";
+                        affichage.add(new CoursAffichage(listeseance.get(i).getDATE(), listeseance.get(i).getHEURE_DEBUT(), nomsalletab, site, nom, "ING3", nomproftab, capacite, nomgrptab));
+
                     }
                 }
             }
             //if((listeseance.get(id.get(i)).getSEMAINE())==51)
             //System.out.println("ff");
         }
-    
-    return affichage;
-            }
 
-    public ArrayList<CoursAffichage> affichageclasse(int idsalle,int semaine, ArrayList<Salle> listesalle, ArrayList<Utilisateur> listeutilisateur, ArrayList<Seance> listeseance, ArrayList<Seance_groupes> listegroupe, ArrayList<Seance_enseignants> listeprof, ArrayList<Cours> listecours, ArrayList<Etudiant> listeetudiant, ArrayList<Seance_salles> listessalles,ArrayList<Site> listesite,ArrayList<Groupe> groupe)
-    {
+        return affichage;
+    }
+
+    public ArrayList<CoursAffichage> affichageclasse(int idsalle, int semaine, ArrayList<Salle> listesalle, ArrayList<Utilisateur> listeutilisateur, ArrayList<Seance> listeseance, ArrayList<Seance_groupes> listegroupe, ArrayList<Seance_enseignants> listeprof, ArrayList<Cours> listecours, ArrayList<Etudiant> listeetudiant, ArrayList<Seance_salles> listessalles, ArrayList<Site> listesite, ArrayList<Groupe> groupe) {
         ArrayList<Integer> id = new ArrayList<>();
         ArrayList<String> nomproftab = new ArrayList<>();
         ArrayList<String> nomgrptab = new ArrayList<>();
@@ -334,7 +306,7 @@ public ArrayList<CoursAffichage> affichageprof(int idprof,int semaine, ArrayList
         for (int i = 0; i < listessalles.size(); i++) {
             if (listessalles.get(i).getID_SALLE() == idsalle) {////On cherche les ID des bonnes seances
                 id.add(listessalles.get(i).getID_SEANCE());
-                System.out.println(listegroupe.get(i).getID_SEANCE());
+                //System.out.println(listegroupe.get(i).getID_SEANCE());
             }
         }
         for (int i = 0; i < listeseance.size(); i++) {//parcours toute les eances
@@ -342,101 +314,86 @@ public ArrayList<CoursAffichage> affichageprof(int idprof,int semaine, ArrayList
             String nomsalle = "";
             String nomprof = "";
             int capacite = 0;
-            String nomgrp="";
-            String site="";
+            String nomgrp = "";
+            String site = "";
             //nomproftab.clear();
             if (listeseance.get(i).getSEMAINE() == semaine) {
                 ///bonne semaine
                 for (int j = 0; j < id.size(); j++) { //parcourir pour le nombre de bonne seance
                     if (listeseance.get(i).getID() == id.get(j)) {///////bon TD Bonne semaine Bon seance
-                       System.out.println("id seance"+listeseance.get(i).getID());
+                        System.out.println("id seance" + listeseance.get(i).getID());
 //System.out.println(listeseance.get(i).getHEURE_DEBUT());
-                       // System.out.println("j"+ id.size());
+                        // System.out.println("j"+ id.size());
                         //recherche d'autre informations
                         //for(int k=0;k<listeseance.size();k++)//plus d ecours que salle::::::::::::::::::::::::::::::::::::::::::
                         //{
-                        for(int m=0;m<listecours.size();m++)
-                        {
-                        if (listecours.get(m).getiD() == listeseance.get(i).getID_COURS()) {
-                            nom = listecours.get(m).getNom();
-                            System.out.println(nom);
-                        }}
+                        for (int m = 0; m < listecours.size(); m++) {
+                            if (listecours.get(m).getiD() == listeseance.get(i).getID_COURS()) {
+                                nom = listecours.get(m).getNom();
+                                System.out.println(nom);
+                            }
+                        }
                         //System.out.println(listegroupe.get(i).getID_SEANCE());
-                       
+
                         /*for (int l = 0; l < listeutilisateur.size(); l++) {
                              
                             
-                          System.out.println("ll"+listeprof.get(i).getID_ENSEIGANT()+"iduti"+listeutilisateur.get(l).getID());
-                            if (listeutilisateur.get(l).getID() == listeprof.get(i).getID_ENSEIGANT()) {
-                                nomprof = listeutilisateur.get(l).getNOM();
-                               // nomproftab.add(listeutilisateur.get(l).getNOM());
-                                System.out.println(nomprof);
-                            }
-                        }*/
-                        
-                        
-                        for(int l=0;l<listeprof.size();l++)
-                        {
-                            if(listeprof.get(l).getID_SEANCE()==id.get(j))
-                            {
-                                for(int v=0;v<listeutilisateur.size();v++)
-                                {
-                                    if(listeutilisateur.get(v).getID()==listeprof.get(l).getID_ENSEIGANT())
-                                    {
-                                    nomprof = nomprof+listeutilisateur.get(v).getNOM()+" ";
-                               
-                                     //System.out.println(nomprof);
+                         System.out.println("ll"+listeprof.get(i).getID_ENSEIGANT()+"iduti"+listeutilisateur.get(l).getID());
+                         if (listeutilisateur.get(l).getID() == listeprof.get(i).getID_ENSEIGANT()) {
+                         nomprof = listeutilisateur.get(l).getNOM();
+                         // nomproftab.add(listeutilisateur.get(l).getNOM());
+                         System.out.println(nomprof);
+                         }
+                         }*/
+                        for (int l = 0; l < listeprof.size(); l++) {
+                            if (listeprof.get(l).getID_SEANCE() == id.get(j)) {
+                                for (int v = 0; v < listeutilisateur.size(); v++) {
+                                    if (listeutilisateur.get(v).getID() == listeprof.get(l).getID_ENSEIGANT()) {
+                                        nomprof = nomprof + listeutilisateur.get(v).getNOM() + " ";
+
+                                        //System.out.println(nomprof);
                                     }
                                 }
                             }
                         }
-                        for(int l=0;l<listegroupe.size();l++)
-                        {
-                            if(listegroupe.get(l).getID_SEANCE()==id.get(j))
-                            {
-                                for(int v=0;v<groupe.size();v++)
-                                {
-                                    if(groupe.get(v).getID()==listegroupe.get(l).getID_GROUPE())
-                                    {
-                                    nomgrp = nomgrp+groupe.get(v).getNOM()+" ";
-                               
-                                    System.out.println(nomgrp);
+                        for (int l = 0; l < listegroupe.size(); l++) {
+                            if (listegroupe.get(l).getID_SEANCE() == id.get(j)) {
+                                for (int v = 0; v < groupe.size(); v++) {
+                                    if (groupe.get(v).getID() == listegroupe.get(l).getID_GROUPE()) {
+                                        nomgrp = nomgrp + groupe.get(v).getNOM() + " ";
+
+                                        System.out.println(nomgrp);
                                     }
                                 }
                             }
                         }
-                        for(int l=0;l<listecours.size();l++)
-                        {
-                            if(listecours.get(l).getiD()==listeseance.get(i).getID_COURS())
-                            nom = listecours.get(l).getNom();
+                        for (int l = 0; l < listecours.size(); l++) {
+                            if (listecours.get(l).getiD() == listeseance.get(i).getID_COURS()) {
+                                nom = listecours.get(l).getNom();
+                            }
                         }
-                        
+
                        // System.out.println(nom);
-                       
-                        for(int e=0;e<listessalles.size();e++)
-                        {
-                            
+                        for (int e = 0; e < listessalles.size(); e++) {
+
                                 //System.out.println(listesalle.get(j).getID());
-                               // System.out.println(listeseance.get(i).getID_COURS());
+                            // System.out.println(listeseance.get(i).getID_COURS());
                             if (listessalles.get(e).getID_SEANCE() == listeseance.get(i).getID())//bon id salle
                             {
-                         
-                                for(int t=0;t<listesalle.size();t++)
-                                {
-                                    if(listesalle.get(t).getID()==listessalles.get(e).getID_SALLE())
-                                    {
-                                 
-                                nomsalle = listesalle.get(t).getNOM();
-                                capacite = listesalle.get(t).getCAPACITE();
-                                System.out.println(nomsalle);
-                                for(int r=0;r<listesite.size();r++)
-                                {
-                                    if(listesite.get(r).getID()==listesalle.get(t).getID_SITE())
-                                        site=listesite.get(r).getNom();
-                                }
+
+                                for (int t = 0; t < listesalle.size(); t++) {
+                                    if (listesalle.get(t).getID() == listessalles.get(e).getID_SALLE()) {
+
+                                        nomsalle = listesalle.get(t).getNOM();
+                                        capacite = listesalle.get(t).getCAPACITE();
+                                        System.out.println(nomsalle);
+                                        for (int r = 0; r < listesite.size(); r++) {
+                                            if (listesite.get(r).getID() == listesalle.get(t).getID_SITE()) {
+                                                site = listesite.get(r).getNom();
+                                            }
+                                        }
                                     }
                                 }
-                                
 
                             }
                         }
@@ -444,19 +401,172 @@ public ArrayList<CoursAffichage> affichageprof(int idprof,int semaine, ArrayList
                         //System.out.println(nomproftab.get(1));
                         nomproftab.add(nomprof);
                         nomgrptab.add(nomgrp);
-                        nomprof="";
-                        nomgrp="";
-                        affichage.add(new CoursAffichage(listeseance.get(i).getDATE(),listeseance.get(i).getHEURE_DEBUT(), nomsalle,site,nom, "ING3", nomproftab,  capacite,nomgrptab));
-                        
+                        nomprof = "";
+                        nomgrp = "";
+                        affichage.add(new CoursAffichage(listeseance.get(i).getDATE(), listeseance.get(i).getHEURE_DEBUT(), nomsalle, site, nom, "ING3", nomproftab, capacite, nomgrptab));
+
                     }
                 }
             }
             //if((listeseance.get(id.get(i)).getSEMAINE())==51)
             //System.out.println("ff");
         }
-    
-    return affichage;
+
+        return affichage;
+    }
+
+    public ArrayList<CoursAffichage> affichageautre(int idprof, int semaine, ArrayList<Salle> listesalle, ArrayList<Utilisateur> listeutilisateur, ArrayList<Seance> listeseance, ArrayList<Seance_groupes> listegroupe, ArrayList<Seance_enseignants> listeprof, ArrayList<Cours> listecours, ArrayList<Etudiant> listeetudiant, ArrayList<Seance_salles> listessalles, ArrayList<Site> listesite, ArrayList<Groupe> groupe, String DD, String DF) {
+        ArrayList<Integer> id = new ArrayList<>();
+        ArrayList<String> nomproftab = new ArrayList<>();
+        ArrayList<String> nomgrptab = new ArrayList<>();
+          ArrayList<String> nomsalletab= new ArrayList<>();
+       // LocalDate predate = LocalDate.of(2020, 05, 27);
+        ArrayList<CoursAffichage> affichage = new ArrayList<>();
+
+        final String SEPARATEUR = "/";
+
+        String mots[] = DD.split(SEPARATEUR);
+        int jour = Integer.parseInt(mots[0]);
+        int mois = Integer.parseInt(mots[1]);
+        int annee = Integer.parseInt(mots[2]);
+        LocalDate Dd = LocalDate.of(annee, mois, jour);
+
+        final String SEPARATEURe = "/";
+
+        String motse[] = DF.split(SEPARATEURe);
+        int joure = Integer.parseInt(motse[0]);
+        int moise = Integer.parseInt(motse[1]);
+        int anneee = Integer.parseInt(motse[2]);
+        LocalDate Df = LocalDate.of(anneee, moise, joure);
+
+        for (int i = 0; i < listeprof.size(); i++) {
+            if (listeprof.get(i).getID_ENSEIGANT() == idprof) {
+////On cherche les ID des bonnes seances
+                for (int k = 0; k < listeseance.size(); k++) {
+                    if (listeseance.get(k).getID() == listeprof.get(i).getID_SEANCE()) {
+                        final String eSEPARATEUR = "/";
+                        String dateseance = listeseance.get(k).getDATE();
+                        String emots[] = dateseance.split(eSEPARATEUR);
+                        int ejour = Integer.parseInt(emots[0]);
+                        int emois = Integer.parseInt(emots[1]);
+                        int eannee = Integer.parseInt(emots[2]);
+                        LocalDate localDate = LocalDate.of(eannee, emois, ejour);
+                        if ((localDate.isBefore(Df) || localDate.isEqual(Df)) && (localDate.isAfter(Dd) || localDate.isEqual(Dd))) {
+                            id.add(listeprof.get(i).getID_SEANCE());
+                            System.out.println(listeprof.get(i).getID_SEANCE());
+                        }
+                    }
+                }
             }
+        }
+        for (int i = 0; i < listeseance.size(); i++) {//parcours toute les eances
+            String nom = "";
+            String nomsalle = "";
+            String nomprof = "";
+            int capacite = 0;
+            String nomgrp = "";
+            String site = "";
+            //nomproftab.clear();
+            if (listeseance.get(i).getSEMAINE() == semaine) {
+                ///bonne semaine
+                for (int j = 0; j < id.size(); j++) { //parcourir pour le nombre de bonne seance
+                    if (listeseance.get(i).getID() == id.get(j)) {///////bon TD Bonne semaine Bon seance
+                        System.out.println("id seance" + listeseance.get(i).getID());
+//System.out.println(listeseance.get(i).getHEURE_DEBUT());
+                        // System.out.println("j"+ id.size());
+                        //recherche d'autre informations
+                        //for(int k=0;k<listeseance.size();k++)//plus d ecours que salle::::::::::::::::::::::::::::::::::::::::::
+                        //{
+                        for (int m = 0; m < listecours.size(); m++) {
+                            if (listecours.get(m).getiD() == listeseance.get(i).getID_COURS()) {
+                                nom = listecours.get(m).getNom();
+                                System.out.println(nom);
+                            }
+                        }
+                        //System.out.println(listegroupe.get(i).getID_SEANCE());
+
+                        /*for (int l = 0; l < listeutilisateur.size(); l++) {
+                             
+                            
+                         System.out.println("ll"+listeprof.get(i).getID_ENSEIGANT()+"iduti"+listeutilisateur.get(l).getID());
+                         if (listeutilisateur.get(l).getID() == listeprof.get(i).getID_ENSEIGANT()) {
+                         nomprof = listeutilisateur.get(l).getNOM();
+                         // nomproftab.add(listeutilisateur.get(l).getNOM());
+                         System.out.println(nomprof);
+                         }
+                         }*/
+                        for (int l = 0; l < listeprof.size(); l++) {
+                            if (listeprof.get(l).getID_SEANCE() == id.get(j)) {
+                                for (int v = 0; v < listeutilisateur.size(); v++) {
+                                    if (listeutilisateur.get(v).getID() == listeprof.get(l).getID_ENSEIGANT()) {
+                                        nomprof = nomprof + listeutilisateur.get(v).getNOM() + " ";
+
+                                        //System.out.println(nomprof);
+                                    }
+                                }
+                            }
+                        }
+                        for (int l = 0; l < listegroupe.size(); l++) {
+                            if (listegroupe.get(l).getID_SEANCE() == id.get(j)) {
+                                for (int v = 0; v < groupe.size(); v++) {
+                                    if (groupe.get(v).getID() == listegroupe.get(l).getID_GROUPE()) {
+                                        nomgrp = nomgrp + groupe.get(v).getNOM() + " ";
+
+                                        System.out.println(nomgrp);
+                                    }
+                                }
+                            }
+                        }
+                        for (int l = 0; l < listecours.size(); l++) {
+                            if (listecours.get(l).getiD() == listeseance.get(i).getID_COURS()) {
+                                nom = listecours.get(l).getNom();
+                            }
+                        }
+
+                       // System.out.println(nom);
+                        for (int e = 0; e < listessalles.size(); e++) {
+
+                                //System.out.println(listesalle.get(j).getID());
+                            // System.out.println(listeseance.get(i).getID_COURS());
+                            if (listessalles.get(e).getID_SEANCE() == listeseance.get(i).getID())//bon id salle
+                            {
+
+                                for (int t = 0; t < listesalle.size(); t++) {
+                                    if (listesalle.get(t).getID() == listessalles.get(e).getID_SALLE()) {
+                                        nomsalle = nomsalle + listesalle.get(t).getNOM() + " ";
+                                        //nomsalle = listesalle.get(t).getNOM();
+                                        capacite = listesalle.get(t).getCAPACITE();
+                                        System.out.println(nomsalle);
+                                        for (int r = 0; r < listesite.size(); r++) {
+                                            if (listesite.get(r).getID() == listesalle.get(t).getID_SITE()) {
+                                                site = listesite.get(r).getNom();
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                        //System.out.println(nomproftab.get(0));
+                        //System.out.println(nomproftab.get(1));
+                        nomproftab.add(nomprof);
+                        nomgrptab.add(nomgrp);
+                        nomsalletab.add(nomsalle);
+                        nomprof = "";
+                        nomgrp = "";
+                        nomsalle="";
+                        affichage.add(new CoursAffichage(listeseance.get(i).getDATE(),listeseance.get(i).getHEURE_DEBUT(), nomsalletab,site,nom, "ING3", nomproftab,  capacite,nomgrptab));
+
+                    }
+                }
+            }
+            //if((listeseance.get(id.get(i)).getSEMAINE())==51)
+            //System.out.println("ff");
+        }
+
+        return affichage;
+    }
+
     public String getNom() {
         return nom;
     }
@@ -469,7 +579,7 @@ public ArrayList<CoursAffichage> affichageprof(int idprof,int semaine, ArrayList
         return capacite;
     }
 
-    public ArrayList <String> getProf() {
+    public ArrayList<String> getProf() {
         return prof;
     }
 
@@ -500,5 +610,5 @@ public ArrayList<CoursAffichage> affichageprof(int idprof,int semaine, ArrayList
     public ArrayList<String> getSalletab() {
         return salletab;
     }
-    
+
 }

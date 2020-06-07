@@ -15,6 +15,8 @@ import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -362,6 +364,9 @@ public class Admin {
                 int mois = Integer.parseInt(mots[1]);
                 int annee = Integer.parseInt(mots[2]);
                 LocalDate localDate = LocalDate.of(annee, mois, jour);
+             
+               Calendar calendar = new GregorianCalendar(annee,mois-1,jour);
+                int week=calendar.get(Calendar.WEEK_OF_YEAR);
                 java.time.DayOfWeek dayOfWeek = localDate.getDayOfWeek();
                 if ((dayOfWeek.equals(localDate.getDayOfWeek().SATURDAY) || dayOfWeek.equals(localDate.getDayOfWeek().SUNDAY)) || ((hd.equals("08:30") == false) && (hd.equals("10:15") == false) && (hd.equals("12:00") == false) && (hd.equals("13:45") == false) && (hd.equals("15:30") == false) && (hd.equals("17:15") == false) && (hd.equals("19:00") == false))) {
                     System.out.println("pas possible");
@@ -389,7 +394,7 @@ public class Admin {
                     if (testcapacite0(idgroupe, idsalle) == true) {
                         if (condition != 1 && condition != 2 && condition != 3) {
                             PreparedStatement stmt = connect.prepareStatement("INSERT INTO seance (SEMAINE,DATE,HEURE_DEBUT,HEURE_FIN,ETAT,ID_COURS,ID_TYPE) VALUES(?,?,?,?,?,?,?)");
-                            stmt.setInt(1, semaine);
+                            stmt.setInt(1, week);
                             stmt.setString(2, date);
                             stmt.setString(3, hd);
                             stmt.setString(4, "10:11");
@@ -556,6 +561,9 @@ public class Admin {
             int mois = Integer.parseInt(mots[1]);
             int annee = Integer.parseInt(mots[2]);
             LocalDate localDate = LocalDate.of(annee, mois, jour);
+            Calendar calendar = new GregorianCalendar(annee,mois-1,jour);
+                int week=calendar.get(Calendar.WEEK_OF_YEAR);
+            
             java.time.DayOfWeek dayOfWeek = localDate.getDayOfWeek();
             System.out.println(dayOfWeek);
             if ((dayOfWeek.equals(localDate.getDayOfWeek().SATURDAY) || dayOfWeek.equals(localDate.getDayOfWeek().SUNDAY)) || ((hd.equals("08:30") == false) && (hd.equals("10:15") == false) && (hd.equals("12:00") == false) && (hd.equals("13:45") == false) && (hd.equals("15:30") == false) && (hd.equals("17:15") == false) && (hd.equals("19:00") == false))) {
@@ -657,10 +665,11 @@ public class Admin {
                     if ((val == 3 || val == 0) && (j != 1) && (jj != 1)) {
                         System.out.println("add");
                         
-                       PreparedStatement stmt2111 = connect.prepareStatement("UPDATE  seance SET DATE=?,HEURE_DEBUT=?  WHERE ID=?");
+                       PreparedStatement stmt2111 = connect.prepareStatement("UPDATE  seance SET DATE=?,HEURE_DEBUT=?, SEMAINE=?  WHERE ID=?");
                          stmt2111.setString(1, date);
                           stmt2111.setString(2, hd);
-                          stmt2111.setInt(3, idseance);
+                          stmt2111.setInt(3, week);
+                          stmt2111.setInt(4, idseance);
                        ResultSet r2111 = stmt2111.executeQuery();
 
                         System.out.println("add");
@@ -1007,5 +1016,11 @@ public class Admin {
         }
 return nombre;
     }
+
+    public Connection getConnect() {
+        return connect;
+    }
+    
+    
 
 }
