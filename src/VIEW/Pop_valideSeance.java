@@ -55,6 +55,10 @@ public class Pop_valideSeance extends JFrame{
         this.setVisible(true);   
     }
     
+    /**
+         * cree la jframe
+         * @return la jframe
+    */
     private JPanel buildPanelInterface() {
         
         entrezEnseignant=new JLabel("Entrez l'id du cours a valider");
@@ -81,6 +85,9 @@ public class Pop_valideSeance extends JFrame{
         panel.add(valider);
         return panel;
     }
+    /**
+         * button listener  pour valider l'action
+    */
     private class validerListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -95,6 +102,9 @@ public class Pop_valideSeance extends JFrame{
             }
         }
     }
+    /**
+         * button listener  pour quitter
+    */
     private class quitterListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

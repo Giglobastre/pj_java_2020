@@ -22,6 +22,9 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 /**
@@ -39,8 +42,10 @@ public class Recapprof extends JFrame {
     private int varr1 = 0;
     private int groupe;
     ArrayList<CoursAffichage> listee;
+    int mid;
 
     public Recapprof(ArrayList<CoursAffichage> liste) {
+        mid=0;
         Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int hauteur = (int) tailleEcran.getHeight();
         int largeur = (int) tailleEcran.getWidth();
@@ -60,6 +65,9 @@ public class Recapprof extends JFrame {
         setVisible(true);
     }
 
+    /**
+         * construit le panel
+    */
     private void buildPanel() {
         JFrame frame = new JFrame();
         JLabel txt = new JLabel("COURS");
@@ -102,16 +110,10 @@ public class Recapprof extends JFrame {
 
         frame.setVisible(true);
     }
-
-    /*private void buildcours(ArrayList<CoursAffichage> liste) {
-        
-     for(int i=0;i<liste.size();i++)
-     {
-     afficours(liste.get(i).getHD(), liste.get(i).getDate(),liste.get(i).getNom(),liste.get(i).getProf(),liste.get(i).getSalle(),liste.get(i).getCapacite(),liste.get(i).getSite(),liste.get(i).getGroupetab());
-     }
- 
-     }*/
     
+    /**
+         * remplis les cours
+    */
     private void buildcours(ArrayList<CoursAffichage> liste) {
      
      for(int i=0;i<liste.size();i++)
@@ -121,6 +123,9 @@ public class Recapprof extends JFrame {
  
  }
     
+    /**
+         * affiche les cours
+    */
    private void afficours(String HD, String Date, String cours, ArrayList<String> nomprof, ArrayList<String> salle, int capacite,String site,ArrayList<String> nomgrp,int i) {
         JLabel gcours= new JLabel(cours);
         JLabel gdate= new JLabel(Date+" "+HD);
@@ -141,7 +146,9 @@ public class Recapprof extends JFrame {
        
     }
 
-   
+/**
+         * monte d'une semaine
+    */
 private class Grand implements ActionListener {
 
         /**
@@ -154,10 +161,15 @@ private class Grand implements ActionListener {
 
            //emaineg=semaineg+1;
             //tabcust.add(new Customer("huh", "ji"));
-            
-           Controlleuredt controle=new Controlleuredt();
+           
+            Calendar calendar = new GregorianCalendar();
+            Date Time = new Date();
+            calendar.setTime(Time);
+            System.out.println(Time);
+            int wk=calendar.get(Calendar.WEEK_OF_YEAR);
+           Controlleuredt controle=new Controlleuredt(wk);
            //controle.setSemaine(valsemaine+1);
-           controle.msg();
+           controle.msg(mid);
            controle.lanceclasse();
                    dispose();
            //System.out.println("semaine"+controle.getSemaine());
@@ -168,7 +180,9 @@ private class Grand implements ActionListener {
 
     }
         
-
+/**
+         * descend d'une semaine
+    */
 private class Petit implements ActionListener {
 
         /**
@@ -181,9 +195,15 @@ private class Petit implements ActionListener {
 
             //emaineg=semaineg+1;
             //tabcust.add(new Customer("huh", "ji"));
-            Controlleuredt controle = new Controlleuredt();
+            
+            Calendar calendar = new GregorianCalendar();
+            Date Time = new Date();
+            calendar.setTime(Time);
+            System.out.println(Time);
+            int wk=calendar.get(Calendar.WEEK_OF_YEAR);
+            Controlleuredt controle = new Controlleuredt(wk);
             //controle.setSemaine(valsemaine-1);
-            controle.msg();
+            controle.msg(mid);
             controle.lanceclasse();
 
             dispose();

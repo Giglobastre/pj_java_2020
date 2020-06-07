@@ -33,15 +33,13 @@ public class Graphes extends ApplicationFrame{
     public Graphes(String title,Admin adm) {
         super(title);
         admin=adm;
+        this.settd();
         setContentPane(createDemoPanel());
-        
-        /*Graphes demo = new Graphes("Pie Chart Demo 1",admin);
-        demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
-        demo.setVisible(true);*/
-        
     }
     
+    /**
+         * set les effectif pour chaque td
+    */
     private void settd(){
         setDoneesGraphe sdg=new setDoneesGraphe(admin);
         td1=sdg.getTD(1);
@@ -52,20 +50,42 @@ public class Graphes extends ApplicationFrame{
         td6=sdg.getTD(6);
     }
     
+    /**
+         * crée le dataset
+    */
     private static PieDataset createDataset() {
         DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("td1", new Double(td1));
-        dataset.setValue("td2", new Double(td2));
-        dataset.setValue("td3", new Double(td3));
-        dataset.setValue("td4", new Double(td4));
-        dataset.setValue("td5", new Double(td5));
-        dataset.setValue("td6", new Double(td6));
+        //decommenter si acces dans la bdd
+        if(td1!=0)
+            dataset.setValue("td1", new Double(td1));
+        if(td2!=0)
+            dataset.setValue("td2", new Double(td2));
+        if(td3!=0)
+            dataset.setValue("td3", new Double(td3));
+        if(td4!=0)
+            dataset.setValue("td4", new Double(td4));
+        if(td5!=0)
+            dataset.setValue("td5", new Double(td5));
+        if(td6!=0)
+            dataset.setValue("td6", new Double(td6));
+        //decommenter si valeur arbitraires
+        /*dataset.setValue("td1", new Double(10));
+        dataset.setValue("td2", new Double(20));
+        dataset.setValue("td3", new Double(15));
+        dataset.setValue("td4", new Double(11));
+        dataset.setValue("td5", new Double(13));
+        dataset.setValue("td6", new Double(17));*/
         return dataset;        
     }
+    
+    /**
+         * crée la chart avec les données
+         * @return un jfreechart
+    */
     private static JFreeChart createChart(PieDataset dataset) {
         
         JFreeChart chart = ChartFactory.createPieChart(
-            "Pie Chart Demo 1",  // chart title
+            "Repartition par TD",  // chart title
             dataset,             // data
             true,               // include legend
             true,
@@ -82,7 +102,7 @@ public class Graphes extends ApplicationFrame{
     }
     
     /**
-     * Creates a panel for the demo (used by SuperDemo.java).
+     * Creates a panel to print
      * 
      * @return A panel.
      */

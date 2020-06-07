@@ -73,7 +73,10 @@ public Fenetre_Connexion(Connexion co) {
 
     }
 
-    //first window (connexion window)
+    /**
+         * Construit l'interface en ajoutant les element au panel
+         * @return Jpanel avec tout les elements dessus
+    */
     private JPanel buildPanelInterface1() {
 
         welcome = new JLabel("welcome !");
@@ -154,6 +157,9 @@ public Fenetre_Connexion(Connexion co) {
 
     }
     
+    /**
+         * button listener pour se connecter a l'interface correspondante
+    */
     private class connectButtonListener implements ActionListener
     {
         @Override
@@ -195,6 +201,10 @@ public Fenetre_Connexion(Connexion co) {
             }
         }
     }
+    
+    /**
+         * button listener generant un popup pour fermer la programme
+    */
     private class close_function implements ActionListener
     {
          @Override

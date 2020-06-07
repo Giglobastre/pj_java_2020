@@ -105,6 +105,9 @@ public class Pop_addSalle extends JFrame{
             }
         }
     }
+    /**
+         * button listener generant un popup pour fermer la fenetre
+    */
     private class quitterListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

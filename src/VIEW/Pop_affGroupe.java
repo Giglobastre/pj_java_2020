@@ -53,7 +53,9 @@ public class Pop_affGroupe extends JFrame{
 
         this.setVisible(true);   
     }
-    
+    /**
+         * construit le panel a metter dans la jframe
+    */
     private JPanel buildPanelInterface() {
         
         entrezEnseignant=new JLabel("Entrez l'id de la seance");
@@ -82,6 +84,9 @@ public class Pop_affGroupe extends JFrame{
         panel.add(valider);
         return panel;
     }
+    /**
+         * button listener  pour valider l'action
+    */
     private class validerListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -105,6 +110,9 @@ public class Pop_affGroupe extends JFrame{
             }
         }
     }
+    /**
+         * button listener  pour quitter
+    */
     private class quitterListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

@@ -39,7 +39,7 @@ public class Edtetudiant extends JFrame {
     private JButton[] semaine = new JButton[52];
     private JLabel[] espace = new JLabel[100];
     private int varr=0,mid;
-     private int var2=0;
+    private int var2=0;
     private int varr1=0;
     private int groupe;
     private ArrayList<Salle> listesalle = new ArrayList<>();

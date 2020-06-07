@@ -82,6 +82,9 @@ public class Pop_affEnseignant extends JFrame{
         panel.add(valider);
         return panel;
     }
+    /**
+         * button listener  pour valider l'action
+    */
     private class validerListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -105,6 +108,9 @@ public class Pop_affEnseignant extends JFrame{
             }
         }
     }
+    /**
+         * button listener  pour quitter
+    */
     private class quitterListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

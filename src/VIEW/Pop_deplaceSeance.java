@@ -58,6 +58,10 @@ Admin m_adm;
         this.setVisible(true);   
     }
     
+    /**
+         * cree le jpanel
+         * @return le jpanel
+    */
     private JPanel buildPanelInterface() {
         
         entrezSeance=new JLabel("Entrez l'id de la seance");
@@ -90,6 +94,9 @@ Admin m_adm;
         panel.add(valider);
         return panel;
     }
+    /**
+         * button listener  pour valider l'action
+    */
     private class validerListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -119,6 +126,9 @@ Admin m_adm;
             }
         }
     }
+    /**
+         * button listener  pour quitter
+    */
     private class quitterListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

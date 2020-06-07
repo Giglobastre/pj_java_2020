@@ -107,6 +107,10 @@ public class Fenetre_Admin extends JFrame{
         panel.add(Quitter, BorderLayout.CENTER);
         return panel;
     }
+    
+    /**
+         * button listener generant un popup pour entrer les données pour affecter un enseignant a une seance
+    */
     private class affEnseignantSeance_Listener implements ActionListener {
 
         @Override
@@ -114,6 +118,9 @@ public class Fenetre_Admin extends JFrame{
             Pop_affEnseignant PaffE=new Pop_affEnseignant(adm);
         }
     }
+    /**
+         * button listener generant un popup pour tracer le graphe
+    */
     private class Graphe_Listener implements ActionListener {
 
         @Override
@@ -124,6 +131,9 @@ public class Fenetre_Admin extends JFrame{
             etd.setVisible(true);
         }
     }
+    /**
+         * button listener generant un popup pour entrer les données pour affecter un groupe a une seance
+    */
     private class affGrpSeance_Listener implements ActionListener {
 
         @Override
@@ -131,6 +141,9 @@ public class Fenetre_Admin extends JFrame{
             Pop_affGroupe afg=new Pop_affGroupe(adm);
         }
     }
+    /**
+         * button listener generant un popup pour entrer les données pour affecter une seance a une salle
+    */
     private class affSalle_Listener implements ActionListener {
 
         @Override
@@ -138,6 +151,9 @@ public class Fenetre_Admin extends JFrame{
             Pop_addSalle as=new Pop_addSalle(adm);
         }
     }
+    /**
+         * button listener pour quitter
+    */
     private class Quitter_Listener implements ActionListener {
 
         @Override
@@ -145,12 +161,18 @@ public class Fenetre_Admin extends JFrame{
             dispose();
         }
     }
+    /**
+         * button listener generant un popup pour entrer les données pour modifier un cours
+    */
     private class modifCours_Listener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
         }
     }
+    /**
+         * button listener generant un popup pour entrer les données pour deplacer une seance
+    */
     private class DepSeance_Listener implements ActionListener {
 
         @Override
@@ -158,6 +180,9 @@ public class Fenetre_Admin extends JFrame{
             Pop_deplaceSeance ds=new Pop_deplaceSeance(adm);
         }
     }
+    /**
+         * button listener generant un popup pour entrer les données pour ajouter une seance
+    */
     private class addSeance_Listener implements ActionListener {
 
         @Override
@@ -165,6 +190,9 @@ public class Fenetre_Admin extends JFrame{
             Pop_ajoutSeance as=new Pop_ajoutSeance(adm);
         }
     }
+    /**
+         * button listener generant un popup pour entrer les données pour annuler une seance
+    */
     private class annulSeance_Listener implements ActionListener {
 
         @Override
@@ -172,6 +200,9 @@ public class Fenetre_Admin extends JFrame{
             Pop_annulerSeance vs=new Pop_annulerSeance(adm);
         }
     }
+    /**
+         * button listener generant un popup pour entrer les données pour valider une seance
+    */
     private class validSeance_Listener implements ActionListener {
 
         @Override
@@ -179,6 +210,9 @@ public class Fenetre_Admin extends JFrame{
             Pop_valideSeance vs=new Pop_valideSeance(adm);
         }
     }
+    /**
+         * button listener generant un popup pour entrer les données pour supprimer un enseignant ou un groupe d'une seance
+    */
     private class delGrp_Enseignant_Cours_Listener implements ActionListener {
 
         @Override

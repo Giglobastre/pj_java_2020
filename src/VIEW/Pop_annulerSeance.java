@@ -55,6 +55,10 @@ public class Pop_annulerSeance extends JFrame{
         this.setVisible(true);   
     }
     
+    /**
+         * cree le jpanel
+         * @return le jpanel
+    */
     private JPanel buildPanelInterface() {
         
         entrezEnseignant=new JLabel("Entrez l'id du cours annulé");
@@ -81,6 +85,9 @@ public class Pop_annulerSeance extends JFrame{
         panel.add(valider);
         return panel;
     }
+    /**
+         * button listener  pour valider l'action
+    */
     private class validerListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -95,6 +102,9 @@ public class Pop_annulerSeance extends JFrame{
             }
         }
     }
+    /**
+         * button listener  pour quitter
+    */
     private class quitterListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
