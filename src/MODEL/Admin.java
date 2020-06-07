@@ -752,7 +752,7 @@ public class Admin {
     /**
          * verifie la capacité de la salle par rapport au nb de personne dans le groupe
          *
-         * @param idsallee, arraylist des salles pour la seance
+         * @param idsalle, arraylist des salles pour la seance
          * @param idgrp,id des groupes dans la seance
          * @return boolean pour definir si la salle peut ou non acceuillir
     */

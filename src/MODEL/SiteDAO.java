@@ -22,6 +22,12 @@ public class SiteDAO extends DAO<Site> {
         super();
     }
 
+    /**
+         * met tout les sites de la db dans une arraylist
+         * 
+         * @param list, arraylist vide
+         * @return une arraylist de site
+    */
     public void chargement(ArrayList<Site> list)
     {
 
