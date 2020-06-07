@@ -28,7 +28,6 @@ public class CoursAffichage {
 
     public CoursAffichage() {
     }
-
     public CoursAffichage(String date, String HD, ArrayList<String> salletab, String site, String nom, String groupe, ArrayList<String> prof, int capacite, ArrayList<String> groupetab) {
         this.date = date;
         this.HD = HD;
@@ -57,6 +56,23 @@ public class CoursAffichage {
 
     }
 
+    /**
+         * remplis une arraylist d'etudiants
+         * 
+         * @param groupe, id du groupe
+         * @param semaine, semaine que l'on affiche
+         * @param listesalle, liste des salles 
+         * @param listeutilisateurs, liste des utilisateurs
+         * @param listeseandce, liste des seances
+         * @param listegroupe, liste des groupes
+         * @param listeprof, liste des profs
+         * @param listecours, liste des cours
+         * @param listeetudiant, liste d'etudiants
+         * @param listessalles, liste des salles
+         * @param listesite, liste des sites
+         * @param groupetab, liste des groupes
+         * @return une arraylist d'etudiants
+    */
     public ArrayList<CoursAffichage> affichageetudiant(int groupe, int semaine, ArrayList<Salle> listesalle, ArrayList<Utilisateur> listeutilisateur, ArrayList<Seance> listeseance, ArrayList<Seance_groupes> listegroupe, ArrayList<Seance_enseignants> listeprof, ArrayList<Cours> listecours, ArrayList<Etudiant> listeetudiant, ArrayList<Seance_salles> listessalles, ArrayList<Site> listesite, ArrayList<Groupe> groupetab) {
         ArrayList<Integer> id = new ArrayList<>();
         ArrayList<String> nomproftab = new ArrayList<>();
@@ -178,6 +194,23 @@ public class CoursAffichage {
         return affichage;
     }
 
+    /**
+         * remplis une arraylist dd'enseignant
+         * 
+         * @param idprof, id de l'enseignant
+         * @param semaine, semaine que l'on affiche
+         * @param listesalle, liste des salles 
+         * @param listeutilisateur, liste des utilisateurs
+         * @param listeseance, liste des seances
+         * @param listegroupe, liste des groupes
+         * @param listeprof, liste des profs
+         * @param listecours, liste des cours
+         * @param listeetudiant, liste d'etudiants
+         * @param listessalles, liste des salles
+         * @param listesite, liste des sites
+         * @param groupetab, liste des groupes
+         * @return une arraylist d'enseignant
+    */
     public ArrayList<CoursAffichage> affichageprof(int idprof, int semaine, ArrayList<Salle> listesalle, ArrayList<Utilisateur> listeutilisateur, ArrayList<Seance> listeseance, ArrayList<Seance_groupes> listegroupe, ArrayList<Seance_enseignants> listeprof, ArrayList<Cours> listecours, ArrayList<Etudiant> listeetudiant, ArrayList<Seance_salles> listessalles, ArrayList<Site> listesite, ArrayList<Groupe> groupetab) {
         ArrayList<Integer> id = new ArrayList<>();
         ArrayList<String> nomproftab = new ArrayList<>();
@@ -298,6 +331,23 @@ public class CoursAffichage {
         return affichage;
     }
 
+    /**
+         * remplis une arraylist de salle
+         * 
+         * @param idsalle, id de la salle
+         * @param semaine, semaine que l'on affiche
+         * @param listesalle, liste des salles 
+         * @param listeutilisateur, liste des utilisateurs
+         * @param listeseance, liste des seances
+         * @param listegroupe, liste des groupes
+         * @param listeprof, liste des profs
+         * @param listecours, liste des cours
+         * @param listeetudiant, liste d'etudiants
+         * @param listessalles, liste des salles
+         * @param listesite, liste des sites
+         * @param groupe, liste des groupes
+         * @return une arraylist de salles
+    */
     public ArrayList<CoursAffichage> affichageclasse(int idsalle, int semaine, ArrayList<Salle> listesalle, ArrayList<Utilisateur> listeutilisateur, ArrayList<Seance> listeseance, ArrayList<Seance_groupes> listegroupe, ArrayList<Seance_enseignants> listeprof, ArrayList<Cours> listecours, ArrayList<Etudiant> listeetudiant, ArrayList<Seance_salles> listessalles, ArrayList<Site> listesite, ArrayList<Groupe> groupe) {
         ArrayList<Integer> id = new ArrayList<>();
         ArrayList<String> nomproftab = new ArrayList<>();
@@ -415,11 +465,28 @@ public class CoursAffichage {
         return affichage;
     }
 
+    /**
+         * remplis une arraylist des seances déja finie
+         * 
+         * @param idprof, id de l'enseignant
+         * @param semaine, semaine que l'on affiche
+         * @param listesalle, liste des salles 
+         * @param listeutilisateur, liste des utilisateurs
+         * @param listeseance, liste des seances
+         * @param listegroupe, liste des groupes
+         * @param listeprof, liste des profs
+         * @param listecours, liste des cours
+         * @param listeetudiant, liste d'etudiants
+         * @param listessalles, liste des salles
+         * @param listesite, liste des sites
+         * @param groupe, liste des groupes
+         * @return une arraylist de salles
+    */
     public ArrayList<CoursAffichage> affichageautre(int idprof, int semaine, ArrayList<Salle> listesalle, ArrayList<Utilisateur> listeutilisateur, ArrayList<Seance> listeseance, ArrayList<Seance_groupes> listegroupe, ArrayList<Seance_enseignants> listeprof, ArrayList<Cours> listecours, ArrayList<Etudiant> listeetudiant, ArrayList<Seance_salles> listessalles, ArrayList<Site> listesite, ArrayList<Groupe> groupe, String DD, String DF) {
         ArrayList<Integer> id = new ArrayList<>();
         ArrayList<String> nomproftab = new ArrayList<>();
         ArrayList<String> nomgrptab = new ArrayList<>();
-          ArrayList<String> nomsalletab= new ArrayList<>();
+        ArrayList<String> nomsalletab= new ArrayList<>();
         LocalDate predate = LocalDate.of(2020, 05, 27);
         ArrayList<CoursAffichage> affichage = new ArrayList<>();
 
@@ -453,7 +520,7 @@ public class CoursAffichage {
                         LocalDate localDate = LocalDate.of(eannee, emois, ejour);
                         if ((localDate.isBefore(Df) || localDate.isEqual(Df)) && (localDate.isAfter(Dd) || localDate.isEqual(Dd))) {
                             id.add(listeprof.get(i).getID_SEANCE());
-                            System.out.println(listeprof.get(i).getID_SEANCE());
+                           
                         }
                     }
                 }

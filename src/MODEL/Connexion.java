@@ -37,6 +37,13 @@ public class Connexion {
         }
     }
     
+    /**
+         * verifie si les parametres entrés pour Nom.Prenom et mdp correspondent dans la bdd
+         * 
+         * @param identifiant, Nom.Prenom saisi
+         * @param pwd, mot de passe entré par l'utilisateur
+         * @return boolean qui definit si le mdp correspond au nom prenom
+    */
     public boolean verif(String identifiant, String pwd){
         
         boolean testCo=false;
@@ -64,6 +71,12 @@ public class Connexion {
         return  testCo;
     }
     
+    /**
+         * retourne l'id du nom prenom saisi
+         * 
+         * @param nomprenom, nom prenom saisi
+         * @return id correspondant
+    */
     public int getidco(String nomprenom){
         int id=0;
         final String sep="\\.";
