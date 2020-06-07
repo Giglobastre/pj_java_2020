@@ -19,14 +19,7 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
 
     public UtilisateurDAO() {
         super();
-    }  
-    
-    /**
-         * met tout les utilisateurs de la db dans une arraylist
-         * 
-         * @param list, arraylist vide
-         * @return une arraylist d'utilisateurs
-    */
+    }    
     public void chargement(ArrayList<Utilisateur> list)
     {
 

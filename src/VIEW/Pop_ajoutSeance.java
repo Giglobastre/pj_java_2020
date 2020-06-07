@@ -64,10 +64,6 @@ public class Pop_ajoutSeance extends JFrame {
         this.setVisible(true);
     }
 
-    /**
-         * cree un panel a mettre dans la jframe
-         * @return le jpanel
-    */
     private JPanel buildPanelInterface() {
 
         jlDate = new JLabel("Date : '/'");
@@ -129,10 +125,17 @@ public class Pop_ajoutSeance extends JFrame {
         panel.add(valider);
         return panel;
     }
+    /*tfDate = new JTextField(15);;
+     tfHD = new JTextField(15);;
+     tfEtat = new JTextField(15);;
+     tfIdc = new JTextField(15);;
+     tfIdt = new JTextField(15);;
+     tfIdp = new JTextField(15);;
+     tfIdg = new JTextField(15);;
+     tfIds = new JTextField(15);;*/
 
-    /**
-         * button listener  pour valider l'action
-    */
+    //String date, String hd, int etat, int idcours, int idtype, ArrayList<Integer> idprof, ArrayList<Integer> idgroupe,ArrayList<Integer> idsalle
+
     private class validerListener implements ActionListener {
 
         @Override
@@ -222,9 +225,6 @@ public class Pop_ajoutSeance extends JFrame {
         }
     }
 
-    /**
-         * button listener  pour quitter
-    */
     private class quitterListener implements ActionListener {
 
         @Override

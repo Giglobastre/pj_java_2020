@@ -22,12 +22,7 @@ public class Seance_groupesDAO extends DAO<Seance_groupes>{
         super();
     }
     
-    /**
-         * met tout les seance_groupes de la db dans une arraylist
-         * 
-         * @param list, arraylist vide
-         * @return une arraylist de seance_groupe
-    */
+    
     public void chargement(ArrayList<Seance_groupes> list)
     {
 

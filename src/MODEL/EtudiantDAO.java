@@ -21,13 +21,6 @@ public class EtudiantDAO extends DAO<Etudiant> {
     public EtudiantDAO() {
         super();
     }
-    
-    /**
-         * met tout les etudiants de la db dans une arraylist
-         * 
-         * @param list, arraylist vide
-         * @return une arraylist d'etudiants
-    */
     public void chargement(ArrayList<Etudiant> list)
     {
 

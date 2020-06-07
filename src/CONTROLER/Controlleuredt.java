@@ -2,6 +2,15 @@ package CONTROLER;
 import MODEL.*;
 import VIEW.*;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 /**
  *
@@ -14,21 +23,16 @@ public class Controlleuredt {
     private ArrayList<CoursAffichage> llisteclasse = new ArrayList<>();
     private ArrayList<CoursAffichage> llisteetudiant = new ArrayList<>();
      private ArrayList<CoursAffichage> llisterecap = new ArrayList<>();
-    
-    /**
-         * constructor
-         *
-         * @param zzsemaine The current week
-    */
-    public Controlleuredt(int zzsemaine) {
-        semaine = zzsemaine;
+
+    public Controlleuredt() {
+         Calendar calendar = new GregorianCalendar();
+        Date Time = new Date();
+        calendar.setTime(Time);
+        System.out.println(Time);
+        int wk=calendar.get(Calendar.WEEK_OF_YEAR);
+        semaine=wk;
     }
-    
-    /**
-         * controle cours affichage
-         *
-         * @param id, id de l'utilisateur
-    */
+
     public void msg(int id) {
         mid=id;
         DAO<Salle> salle = new SalleDAO();
@@ -69,13 +73,7 @@ public class Controlleuredt {
         llisteetudiant = courrr.affichageetudiant(mid, semaine, listesalle, listeutilisateur, listeseance, listegroupe, listeprof, listecours, listeetudiant, listessalles, listesite, groupetab);
 
     }
-    /**
-         * controle recapprof
-         *
-         * @param DD, date de debut
-         * @param DF, date de fin
-    */
-    public void msgrecap(String DD,String DF) {
+    public void msgrecap(int id,String DD,String DF) {
         DAO<Salle> salle = new SalleDAO();
         DAO<Utilisateur> uti = new UtilisateurDAO();
         DAO<Seance> seance = new SeanceDAO();
@@ -109,33 +107,27 @@ public class Controlleuredt {
         site.chargement(listesite);
         grp.chargement(groupetab);
         CoursAffichage courrr = new CoursAffichage();
-        llisterecap = courrr.affichageautre(7, semaine, listesalle, listeutilisateur, listeseance, listegroupe, listeprof, listecours, listeetudiant, listessalles, listesite, groupetab,DD,DF);
+        llisterecap = courrr.affichageautre(id, semaine, listesalle, listeutilisateur, listeseance, listegroupe, listeprof, listecours, listeetudiant, listessalles, listesite, groupetab,DD,DF);
 
     }
-    
-    /**
-         * cree un objet etudiant
-    */
+
     public void lanceetudiant() {
+        
         new Edtetudiant(llisteetudiant, semaine,mid);
     }
-    /**
-         * cree un objet classe
-    */
-     public void lanceclasse() {
-        new EdtDisplay(llisteclasse,semaine,mid);
+     public void lanceclasse(int idprof) {
+        
+        EdtDisplay edt= new EdtDisplay(llisteclasse,semaine,mid,idprof);
+        
     }
-     /**
-         * cree un objet prof
-    */
      public void lanceprof() {
-        new Edtetudiant(llisteprof, semaine,mid);
+        new Edtprof(llisteprof, semaine,mid);
     }
-     /**
-         * cree un objet profrecap
-    */
-    public void lanceprofrecap() {
-        new Recapprof(llisterecap);
+    public void lanceprofrecap(int idprof) {
+        new Recapprof(llisterecap,idprof);
+    }
+    public void lanceetudiantprof(int idprof) {
+        new EdtDisplayprof(llisteclasse,semaine,mid, idprof);
     }
 
    

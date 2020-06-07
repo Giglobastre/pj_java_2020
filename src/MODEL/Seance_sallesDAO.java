@@ -20,12 +20,6 @@ public class Seance_sallesDAO extends DAO<Seance_salles>{
 
     public Seance_sallesDAO() {
     }
-    /**
-         * met tout les seance_salle de la db dans une arraylist
-         * 
-         * @param list, arraylist vide
-         * @return une arraylist de seance_salle
-    */
     public void chargement(ArrayList<Seance_salles> list)
     {
 

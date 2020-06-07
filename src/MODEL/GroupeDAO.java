@@ -20,12 +20,7 @@ public class GroupeDAO extends DAO<Groupe>{
         super();
     }
     
-    /**
-         * met tout les groupes de la db dans une arraylist
-         * 
-         * @param list, arraylist vide
-         * @return une arraylist de groupes
-    */
+    
 public void chargement(ArrayList<Groupe> list)
     {
 

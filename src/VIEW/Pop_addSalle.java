@@ -101,13 +101,10 @@ public class Pop_addSalle extends JFrame{
                 jop.showMessageDialog(null, "Seance n'existe pas", "Echec", JOptionPane.ERROR_MESSAGE);
             }else if (res==10){
                 JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "Affectation reussie", "Reussite", JOptionPane.ERROR_MESSAGE);
+                jop.showMessageDialog(null, "Affectation reussie", "Reussit", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
-    /**
-         * button listener generant un popup pour fermer la fenetre
-    */
     private class quitterListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
