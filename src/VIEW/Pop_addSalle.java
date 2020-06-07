@@ -89,10 +89,10 @@ public class Pop_addSalle extends JFrame{
             int res=m_adm.ajoutesalle(Integer.parseInt(idEnseignant.getText()), Integer.parseInt(idCours.getText()));
             if (res==0){
                 JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "Salle déja en cours", "Echec", JOptionPane.ERROR_MESSAGE);
+                jop.showMessageDialog(null, "Salle est deja affectée a cette seance", "Echec", JOptionPane.ERROR_MESSAGE);
             }else if (res==1){
                 JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "Salle a déja affecté", "Echec", JOptionPane.ERROR_MESSAGE);
+                jop.showMessageDialog(null, "Salle pas dispo", "Echec", JOptionPane.ERROR_MESSAGE);
             }else if (res==2){
                 JOptionPane jop = new JOptionPane();
                 jop.showMessageDialog(null, "Salle n'existe pas", "Echec", JOptionPane.ERROR_MESSAGE);

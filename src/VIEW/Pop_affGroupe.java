@@ -56,8 +56,8 @@ public class Pop_affGroupe extends JFrame{
     
     private JPanel buildPanelInterface() {
         
-        entrezEnseignant=new JLabel("Entrez l'id du groupe");
-        entrezCours=new JLabel("Entrez l'id du cours");
+        entrezEnseignant=new JLabel("Entrez l'id de la seance");
+        entrezCours=new JLabel("Entrez l'id du groupe");
         msg=new JLabel("Affecter un groupe a un cours");
         
         idEnseignant = new JTextField(15);
@@ -89,10 +89,10 @@ public class Pop_affGroupe extends JFrame{
             int res=m_adm.ajoutergrp(Integer.parseInt(idEnseignant.getText()), Integer.parseInt(idCours.getText()));
             if (res==0){
                 JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "Groupe déja en cours", "Echec", JOptionPane.ERROR_MESSAGE);
+                jop.showMessageDialog(null, "Le groupe est deja affecté a cette seance", "Echec", JOptionPane.ERROR_MESSAGE);
             }else if (res==1){
                 JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "Groupe a déja affecté", "Echec", JOptionPane.ERROR_MESSAGE);
+                jop.showMessageDialog(null, "Le groupe a deja cours", "Echec", JOptionPane.ERROR_MESSAGE);
             }else if (res==2){
                 JOptionPane jop = new JOptionPane();
                 jop.showMessageDialog(null, "Groupe n'existe pas", "Echec", JOptionPane.ERROR_MESSAGE);

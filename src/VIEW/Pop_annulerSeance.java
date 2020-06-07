@@ -57,7 +57,7 @@ public class Pop_annulerSeance extends JFrame{
     
     private JPanel buildPanelInterface() {
         
-        entrezEnseignant=new JLabel("Entrez l'id du cours a supprimer");
+        entrezEnseignant=new JLabel("Entrez l'id du cours annulé");
         //entrezCours=new JLabel("Entrez l'id de l'enseignant");
         //msg=new JLabel("Affecter un enseignant a un cours");
         
@@ -73,9 +73,9 @@ public class Pop_annulerSeance extends JFrame{
         panel = new JPanel();
         panel.setLayout(new GridLayout(3, 2));
         
-        panel.add(msg);
         panel.add(new JPanel());
-        panel.add(entrezCours);
+        panel.add(new JPanel());
+        panel.add(entrezEnseignant);
         panel.add(idCours);
         panel.add(quitter);
         panel.add(valider);

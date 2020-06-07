@@ -100,10 +100,22 @@ Admin m_adm;
                 jop.showMessageDialog(null, "Seance non trouvée", "Echec", JOptionPane.ERROR_MESSAGE);
             }else if(res==1){
                 JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "Groupe non affecté a cette seance", "Echec", JOptionPane.ERROR_MESSAGE);
+                jop.showMessageDialog(null, "Un groupe a deja cours", "Echec", JOptionPane.ERROR_MESSAGE);
             }else if(res==2){
                 JOptionPane jop = new JOptionPane();
                 jop.showMessageDialog(null, "Reussite", "Reussite", JOptionPane.ERROR_MESSAGE);
+            }
+            else if(res==12){
+                JOptionPane jop = new JOptionPane();
+                jop.showMessageDialog(null, "Hoaire non comforme", "Echec", JOptionPane.ERROR_MESSAGE);
+            }
+            else if(res==4){
+                JOptionPane jop = new JOptionPane();
+                jop.showMessageDialog(null, "Prof a deja cours", "Echec", JOptionPane.ERROR_MESSAGE);
+            }
+            else if(res==6){
+                JOptionPane jop = new JOptionPane();
+                jop.showMessageDialog(null, "La classe est pas dispo", "Echec", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

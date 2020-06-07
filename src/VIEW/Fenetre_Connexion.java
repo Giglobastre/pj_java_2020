@@ -5,11 +5,15 @@
  */
 package VIEW;
 
+import CONTROLER.Controlleuredt;
 import MODEL.Connexion;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Date;
 
 /**
  *
@@ -154,22 +158,38 @@ public Fenetre_Connexion(Connexion co) {
     {
         @Override
         public void actionPerformed(ActionEvent e) {
+        /* Source http://week-number.net/programming/week-number-in-java.html */
+        Calendar calendar = new GregorianCalendar();
+        Date Time = new Date();
+        calendar.setTime(Time);
+        System.out.println(Time);
+        int wk=calendar.get(Calendar.WEEK_OF_YEAR);
+        
             if(m_co_db.verif(ID.getText(), password.getText())){
                 //si connexion a marché
                 if(m_co_db.getType()==1){//si admin
                     Fenetre_Admin fad=new Fenetre_Admin();
                 }else if(m_co_db.getType()==2){//pedagogie
-                    
+                    Controlleuredt con=new Controlleuredt(wk);
+                    int id11=m_co_db.getidco(ID.getText());
+                    con.msg(id11);
+                    con.lanceprof();
                 }else if(m_co_db.getType()==3){//enseignant
-                    
+                    Controlleuredt con=new Controlleuredt(wk);
+                    int id11=m_co_db.getidco(ID.getText());
+                    con.msg(id11);
+                    con.lanceprof();
                 }else if(m_co_db.getType()==4){//etudiant
-                    
+                    Controlleuredt con=new Controlleuredt(wk);
+                    int id11=m_co_db.getidco(ID.getText());
+                    con.msg(id11);
+                    con.lanceetudiant();
                 }
                 dispose();
-            }else if(!m_co_db.verif(ID.getText(), password.getText())){
+            }else if(m_co_db.verif(ID.getText(), password.getText())==false){
                 //Message d'erreur
                 JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "Mauvais identifiant ou mot de passe", "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+                jop.showMessageDialog(null, "Mauvais Nom.Prenom ou mot de passe", "Erreur de connection", JOptionPane.ERROR_MESSAGE);
                 dispose();
                 Fenetre_Connexion fco=new Fenetre_Connexion(m_co_db);
             }

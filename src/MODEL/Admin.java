@@ -35,7 +35,7 @@ public class Admin {
                 Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             // db parameters - ptest is the name of the database
-            String url = "jdbc:mariadb://localhost/java2020";
+            String url = "jdbc:mariadb://localhost/pj_java2020";
             String user = "root";
             String password = "";
             // create a connection to the database
@@ -64,8 +64,9 @@ public class Admin {
                     } 
                 }
                 if(j==0&&i!=0)
+                {
                  System.out.println("l'enseignang n'est pas affcter a cette sence de cours");
-                    
+                    return 1;}
                 if (i == 0) {
                     System.out.println("seance pas trouver");
                     return 0;
@@ -221,6 +222,7 @@ public class Admin {
                         stmt2.setInt(2, idgroupe);
                         ResultSet rs2 = stmt2.executeQuery();
                         System.out.println("add");
+                        return 10;
 
                     }
                     if (i == 3) {
@@ -363,6 +365,7 @@ public class Admin {
                 java.time.DayOfWeek dayOfWeek = localDate.getDayOfWeek();
                 if ((dayOfWeek.equals(localDate.getDayOfWeek().SATURDAY) || dayOfWeek.equals(localDate.getDayOfWeek().SUNDAY)) || ((hd.equals("08:30") == false) && (hd.equals("10:15") == false) && (hd.equals("12:00") == false) && (hd.equals("13:45") == false) && (hd.equals("15:30") == false) && (hd.equals("17:15") == false) && (hd.equals("19:00") == false))) {
                     System.out.println("pas possible");
+                    return 6;
                 } else {
 
                     for (int i = 0; i < idprof.size(); i++) {
@@ -408,18 +411,23 @@ public class Admin {
                             
                             //ajouterprof()
                             System.out.println("add");
+                            return 20;
                         }
                         if (condition == 1) {
                             System.out.println("Un prof n'est pas disponible");
+                            return 0;
                         }
                         if (condition == 3) {
                             System.out.println("Salle pas disponible");
+                            return 3;
                         }
                         if (condition == 2) {
                             System.out.println("Un groupe n'est pas disponible");
+                            return 2;
                         }
                     } else {
                         System.out.println("salle trop petite");
+                        return 4;
                     }
                 }
             } catch (SQLException e) {
@@ -427,6 +435,7 @@ public class Admin {
             }
         } else {
             System.out.println("valeur non reconnue");
+            return 5;
         }
         return 20;
     }
@@ -507,6 +516,7 @@ public class Admin {
                         stmt2.setInt(2, idsalle);
                         ResultSet rs2 = stmt2.executeQuery();
                         System.out.println("add");
+                        return 10;
 
                     }
                     if (i == 3) {
@@ -547,8 +557,10 @@ public class Admin {
             int annee = Integer.parseInt(mots[2]);
             LocalDate localDate = LocalDate.of(annee, mois, jour);
             java.time.DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+            System.out.println(dayOfWeek);
             if ((dayOfWeek.equals(localDate.getDayOfWeek().SATURDAY) || dayOfWeek.equals(localDate.getDayOfWeek().SUNDAY)) || ((hd.equals("08:30") == false) && (hd.equals("10:15") == false) && (hd.equals("12:00") == false) && (hd.equals("13:45") == false) && (hd.equals("15:30") == false) && (hd.equals("17:15") == false) && (hd.equals("19:00") == false))) {
                 System.out.println("pas possible");
+                return 12;
             } else {
                 PreparedStatement stmt0 = connect.prepareStatement("SELECT * FROM seance WHERE ID=?");//on cherche les valeur de la seance
                 stmt0.setInt(1, idseance);
@@ -583,7 +595,35 @@ public class Admin {
                             }
                         }
                     }
+                    
+                    
+                    PreparedStatement stmt1211 = connect.prepareStatement("SELECT * FROM seance_salle WHERE ID_SEANCE=?");//on cherche les valeur de la seance
+                    stmt1211.setInt(1, idseance);
 
+                    ResultSet rs1211 = stmt1211.executeQuery();
+                    while (rs1211.next()) {
+
+                        System.out.println(rs1211.getInt("ID_SALLE")); ////seance existe
+                        PreparedStatement stmt1 = connect.prepareStatement("SELECT * FROM seance_salle WHERE ID_SALLE=" + rs1211.getInt("ID_SALLE"));
+                        ResultSet rs1 = stmt1.executeQuery();
+                        while (rs1.next()) {
+                            System.out.println(rs1.getString("ID_SEANCE"));
+                            PreparedStatement stmt31 = connect.prepareStatement("SELECT * FROM seance WHERE ID=" + rs1.getInt("ID_SEANCE"));
+                            ResultSet rs31 = stmt31.executeQuery();
+                            while (rs31.next()) {
+                                System.out.println(rs31.getString("DATE") + rs31.getString("HEURE_DEBUT"));
+                                if (rs31.getString("DATE").equals(date) && rs31.getString("HEURE_DEBUT").equals(hd)) {//Si le td a deja cours
+                                    return 6;
+                                } else {
+                                    val = 3;
+                                }
+                            }
+                        }
+                    }
+                    
+                    
+                   
+                       
                     PreparedStatement stmt121 = connect.prepareStatement("SELECT * FROM seance_groupes WHERE ID_SEANCE=?");//on cherche les valeur de la seance
                     stmt121.setInt(1, idseance);
 
@@ -615,21 +655,29 @@ public class Admin {
                         i = 3;
                     }
                     if ((val == 3 || val == 0) && (j != 1) && (jj != 1)) {
-                        /*PreparedStatement stmt2 = connect.prepareStatement("INSERT INTO seance_enseignant (ID_SEANCE,ID_ENSEIGNANT) VALUES(?,?)");
-                         stmt2.setInt(1, idseance);
-                         stmt2.setInt(2, idprof);
-                         ResultSet rs2 = stmt2.executeQuery();*/ ///update
+                        System.out.println("add");
+                        
+                       PreparedStatement stmt2111 = connect.prepareStatement("UPDATE  seance SET DATE=?,HEURE_DEBUT=?  WHERE ID=?");
+                         stmt2111.setString(1, date);
+                          stmt2111.setString(2, hd);
+                          stmt2111.setInt(3, idseance);
+                       ResultSet r2111 = stmt2111.executeQuery();
 
                         System.out.println("add");
+                        return 2;
                     }
                     if (j == 1) {
                         System.out.println("Le prof a deja cours");
+                        return 4;
                     }
                     if (jj == 1) {
                         System.out.println("Le groupe a deja cours");
+                        return 1;
                     }
                 } else {
-                    System.out.println("La seance ou le groupe existe pas");
+                    
+                    System.out.println("La seance existe pas");
+                    return 0;
                 }
             }
         } catch (SQLException e) {
@@ -959,5 +1007,11 @@ public class Admin {
         }
 return nombre;
     }
+
+    public Connection getConnect() {
+        return connect;
+    }
+    
+    
 
 }

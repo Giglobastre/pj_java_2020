@@ -93,12 +93,13 @@ Admin m_adm;
         public void actionPerformed(ActionEvent e) {
             //idCours = id de la seance
             int res=m_adm.enlevergrpensei(!cb.isSelected(),Integer.parseInt(idSeance.getText()), Integer.parseInt(idGE.getText()));
+            System.out.println(!cb.isSelected());
             if(res==0){
                 JOptionPane jop = new JOptionPane();
                 jop.showMessageDialog(null, "Seance non trouvée", "Echec", JOptionPane.ERROR_MESSAGE);
             }else if(res==1){
                 JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "Groupe non affecté a cette seance", "Echec", JOptionPane.ERROR_MESSAGE);
+                jop.showMessageDialog(null, "Groupe ou ensiegnant non affecté a cette seance", "Echec", JOptionPane.ERROR_MESSAGE);
             }else if(res==2){
                 JOptionPane jop = new JOptionPane();
                 jop.showMessageDialog(null, "Reussite", "Reussite", JOptionPane.ERROR_MESSAGE);

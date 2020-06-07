@@ -6,6 +6,11 @@
 package CONTROLER;
 import MODEL.*;
 import VIEW.*;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 /**
  *
  * @author Kenny-portable
@@ -13,7 +18,19 @@ import VIEW.*;
 public class Controler_main {
     public static void main(String[] args) {
         Connexion co=new Connexion();
-        Fenetre_Connexion fco=new Fenetre_Connexion(co);
         
-    }
+        Fenetre_Connexion fco=new Fenetre_Connexion(co);
+        /*Controlleuredt control=new Controlleuredt();
+        control.msg(7);
+        control.lanceprof();
+        */
 }
+
+
+
+
+}
+
+
+
+

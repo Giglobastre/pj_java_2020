@@ -73,9 +73,9 @@ public class Pop_valideSeance extends JFrame{
         panel = new JPanel();
         panel.setLayout(new GridLayout(3, 2));
         
-        panel.add(msg);
         panel.add(new JPanel());
-        panel.add(entrezCours);
+        panel.add(new JPanel());
+        panel.add(entrezEnseignant);
         panel.add(idCours);
         panel.add(quitter);
         panel.add(valider);

@@ -89,10 +89,10 @@ public class Pop_affEnseignant extends JFrame{
             int res=m_adm.ajouterprof(Integer.parseInt(idEnseignant.getText()), Integer.parseInt(idCours.getText()));
             if (res==0){
                 JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "Enseignant déja en cours", "Echec", JOptionPane.ERROR_MESSAGE);
+                jop.showMessageDialog(null, "L'enseignant est déja affecté", "Echec", JOptionPane.ERROR_MESSAGE);
             }else if (res==1){
                 JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "L'enseignant a déja affecté", "Echec", JOptionPane.ERROR_MESSAGE);
+                jop.showMessageDialog(null,  "Enseignant déja en cours","Echec", JOptionPane.ERROR_MESSAGE);
             }else if (res==2){
                 JOptionPane jop = new JOptionPane();
                 jop.showMessageDialog(null, "Enseignant n'existe pas", "Echec", JOptionPane.ERROR_MESSAGE);

@@ -7,6 +7,7 @@ package VIEW;
 import MODEL.*;
 import CONTROLER.*;
 import javax.swing.JFrame;
+import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -30,14 +31,15 @@ import java.util.Scanner;
  *
  * @author hugo7
  */
-public class EdtDisplay extends JFrame {
+public class Edtetudiant extends JFrame {
 
     private JPanel[] tabpanel = new JPanel[63];
     private JLabel[] nomjours = new JLabel[6];
     private JLabel[] heure = new JLabel[14];
     private JButton[] semaine = new JButton[52];
     private JLabel[] espace = new JLabel[100];
-    private int varr=0,id;
+    private int varr=0,mid;
+     private int var2=0;
     private int varr1=0;
     private int groupe;
     private ArrayList<Salle> listesalle = new ArrayList<>();
@@ -51,8 +53,10 @@ public class EdtDisplay extends JFrame {
     private int valsemaine;
     ArrayList<CoursAffichage> listee;
 
-    public EdtDisplay(ArrayList<CoursAffichage> liste,int semaine, int mid) {
-        id=mid;
+    public Edtetudiant(ArrayList<CoursAffichage> liste,int semaine,int id)
+
+    {
+        mid=id;
         Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 int hauteur = (int)tailleEcran.getHeight();
 int largeur = (int)tailleEcran.getWidth();
@@ -131,7 +135,16 @@ int largeur = (int)tailleEcran.getWidth();
         heure[11] = new JLabel("18h45");
         heure[12] = new JLabel("19h00");
         heure[13] = new JLabel("20h30");
-
+        //Build groupe nr
+        JLabel entrezgroupe=new JLabel("Saisir le groupe :");
+        JTextField egtf=new JTextField(15);
+        JButton egb=new JButton("Recherche");
+        egb.addActionListener(new egbListener());
+        tabpanel[6].setLayout(new GridLayout(3, 1));
+        tabpanel[6].add(entrezgroupe);
+        tabpanel[6].add(egtf);
+        tabpanel[6].add(egb);
+        
         tabpanel[14].setLayout(new GridLayout(2, 1));
         tabpanel[14].add(heure[0]);
         tabpanel[14].add(heure[1]);
@@ -163,7 +176,7 @@ int largeur = (int)tailleEcran.getWidth();
         
      for(int i=0;i<liste.size();i++)
      {
-            afficours(liste.get(i).getHD(), liste.get(i).getDate(),liste.get(i).getNom(),liste.get(i).getProf(),liste.get(i).getSalle(),liste.get(i).getCapacite(),liste.get(i).getSite(),liste.get(i).getGroupetab());
+            afficours(liste.get(i).getHD(), liste.get(i).getDate(),liste.get(i).getNom(),liste.get(i).getProf(),liste.get(i).getSalletab(),liste.get(i).getCapacite(),liste.get(i).getSite(),liste.get(i).getGroupetab());
      }
  
  }
@@ -197,7 +210,7 @@ int largeur = (int)tailleEcran.getWidth();
      
  }
  
- private void afficours(String HD, String Date, String cours, ArrayList<String> nomprof, String salle, int capacite,String site,ArrayList<String> nomgrp) {
+ private void afficours(String HD, String Date, String cours, ArrayList<String> nomprof,ArrayList<String> salle, int capacite,String site,ArrayList<String> nomgrp) {
         final String SEPARATEUR = "/";
         String conte = Date;
 
@@ -213,25 +226,26 @@ int largeur = (int)tailleEcran.getWidth();
         //Getting the day of week for a given date
         java.time.DayOfWeek dayOfWeek = localDate.getDayOfWeek();
         if (dayOfWeek.equals(localDate.getDayOfWeek().MONDAY)) {
-            builaffheure(HD,1,cours,nomprof.get(varr),salle,capacite,site,nomgrp.get(varr1));
+            builaffheure(HD,1,cours,nomprof.get(varr),salle.get(var2),capacite,site,nomgrp.get(varr1));
         }
         if (dayOfWeek.equals(localDate.getDayOfWeek().TUESDAY)) {
-            builaffheure(HD,2,cours,nomprof.get(varr),salle,capacite,site,nomgrp.get(varr1));
+            builaffheure(HD,2,cours,nomprof.get(varr),salle.get(var2),capacite,site,nomgrp.get(varr1));
         }
         if (dayOfWeek.equals(localDate.getDayOfWeek().WEDNESDAY)) {
-            builaffheure(HD,3,cours,nomprof.get(varr),salle,capacite,site,nomgrp.get(varr1));
+            builaffheure(HD,3,cours,nomprof.get(varr),salle.get(var2),capacite,site,nomgrp.get(varr1));
         }
         if (dayOfWeek.equals(localDate.getDayOfWeek().THURSDAY)) {
-            builaffheure(HD,4,cours,nomprof.get(varr),salle,capacite,site,nomgrp.get(varr1));
+            builaffheure(HD,4,cours,nomprof.get(varr),salle.get(var2),capacite,site,nomgrp.get(varr1));
         }
         if (dayOfWeek.equals(localDate.getDayOfWeek().FRIDAY)) {
-            builaffheure(HD,5,cours,nomprof.get(varr),salle,capacite,site,nomgrp.get(varr1));
+            builaffheure(HD,5,cours,nomprof.get(varr),salle.get(var2),capacite,site,nomgrp.get(varr1));
         }
         if (dayOfWeek.equals(localDate.getDayOfWeek().SATURDAY)) {
-            builaffheure(HD,6,cours,nomprof.get(varr),salle,capacite,site,nomgrp.get(varr1));
+            builaffheure(HD,6,cours,nomprof.get(varr),salle.get(var2),capacite,site,nomgrp.get(varr1));
         }
         varr++;
         varr1++;
+        var2++;
     }
 
     private void builaffheure(String Heure, int jour, String cours, String nomprof, String salle, int capacite,String site, String nomgrp) {
@@ -424,17 +438,16 @@ private class Grand implements ActionListener {
 
            //emaineg=semaineg+1;
             //tabcust.add(new Customer("huh", "ji"));
-           /* Source http://week-number.net/programming/week-number-in-java.html */
-            Calendar calendar = new GregorianCalendar();
-            Date Time = new Date();
-            calendar.setTime(Time);
-            System.out.println(Time);
-            int wk=calendar.get(Calendar.WEEK_OF_YEAR); 
-            
+            /* Source http://week-number.net/programming/week-number-in-java.html */
+        Calendar calendar = new GregorianCalendar();
+        Date Time = new Date();
+        calendar.setTime(Time);
+        System.out.println(Time);
+        int wk=calendar.get(Calendar.WEEK_OF_YEAR);
            Controlleuredt controle=new Controlleuredt(wk);
            controle.setSemaine(valsemaine+1);
-           controle.msg(id);
-           controle.lanceclasse();
+           controle.msg(mid);
+           controle.lanceetudiant();
                    dispose();
            //System.out.println("semaine"+controle.getSemaine());
            //CoursAffichage courrr=new CoursAffichage();
@@ -464,8 +477,8 @@ private class Petit implements ActionListener {
         int wk=calendar.get(Calendar.WEEK_OF_YEAR);
            Controlleuredt controle=new Controlleuredt(wk);
            controle.setSemaine(valsemaine-1);
-           controle.msg(id);
-           controle.lanceclasse();
+           controle.msg(mid);
+           controle.lanceetudiant();
            
            dispose();
            //System.out.println("semaine"+controle.getSemaine());
@@ -475,4 +488,11 @@ private class Petit implements ActionListener {
         }
 
     }
+
+    private class egbListener implements ActionListener {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        }
 }
