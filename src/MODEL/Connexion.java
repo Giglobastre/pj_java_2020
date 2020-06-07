@@ -37,6 +37,13 @@ public class Connexion {
         }
     }
     
+    /**
+         * verifie si les parametres entrés pour Nom.Prenom et mdp correspondent dans la bdd
+         * 
+         * @param identifiant, Nom.Prenom saisi
+         * @param pwd, mot de passe entré par l'utilisateur
+         * @return boolean qui definit si le mdp correspond au nom prenom
+    */
     public boolean verif(String identifiant, String pwd){
         
         boolean testCo=false;
@@ -64,6 +71,12 @@ public class Connexion {
         return  testCo;
     }
     
+    /**
+         * retourne l'id du nom prenom saisi
+         * 
+         * @param nomprenom, nom prenom saisi
+         * @return id correspondant
+    */
     public int getidco(String nomprenom){
         int id=0;
         final String sep="\\.";
@@ -78,33 +91,6 @@ public class Connexion {
         while(rs.next()){
             id=rs.getInt("ID");
         }
-       
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return  id;
-    }
-      public int getidcoeleve(String nomprenom){
-        int id=0;
-        final String sep="\\.";
-        String prenomNom[]=nomprenom.split(sep,2);
-        String prenom=prenomNom[0];
-        String nom=prenomNom[1];
-        try {
-        PreparedStatement stmt = m_co.prepareStatement("SELECT ID FROM utilisateur WHERE NOM=? AND PRENOM=?");
-        stmt.setString(1,prenom);
-        stmt.setString(2,nom);
-        ResultSet rs=stmt.executeQuery(); 
-        while(rs.next()){
-            id=rs.getInt("ID");
-            PreparedStatement stmt2 = m_co.prepareStatement("SELECT * FROM etudiant WHERE ID_UTILISATEUR="+rs.getInt("ID"));
-            ResultSet rs2=stmt2.executeQuery(); 
-            while(rs2.next())
-            {
-                id=rs2.getInt("ID_GROUPE");
-            }
-        }
-       
         } catch (SQLException e) {
             e.printStackTrace();
         }

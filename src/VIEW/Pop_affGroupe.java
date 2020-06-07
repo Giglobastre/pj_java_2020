@@ -53,7 +53,9 @@ public class Pop_affGroupe extends JFrame{
 
         this.setVisible(true);   
     }
-    
+    /**
+         * construit le panel a metter dans la jframe
+    */
     private JPanel buildPanelInterface() {
         
         entrezEnseignant=new JLabel("Entrez l'id de la seance");
@@ -82,6 +84,9 @@ public class Pop_affGroupe extends JFrame{
         panel.add(valider);
         return panel;
     }
+    /**
+         * button listener  pour valider l'action
+    */
     private class validerListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -101,10 +106,13 @@ public class Pop_affGroupe extends JFrame{
                 jop.showMessageDialog(null, "Seance n'existe pas", "Echec", JOptionPane.ERROR_MESSAGE);
             }else if (res==10){
                 JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "Affectation reussie", "Reussit", JOptionPane.ERROR_MESSAGE);
+                jop.showMessageDialog(null, "Affectation reussie", "Reussite", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
+    /**
+         * button listener  pour quitter
+    */
     private class quitterListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

@@ -20,7 +20,12 @@ public class SalleDAO extends DAO<Salle>{
         super();
     }
     
-    
+    /**
+         * met toutes les salles de la db dans une arraylist
+         * 
+         * @param list, arraylist vide
+         * @return une arraylist de salles
+    */
     public void chargement(ArrayList<Salle> list)
     {
 

@@ -38,16 +38,14 @@ public class Recapprof extends JFrame {
     private JLabel[] heure = new JLabel[14];
     private JButton[] semaine = new JButton[52];
     private JLabel[] espace = new JLabel[100];
-  
-   private JButton quit = new JButton();
     private int varr = 0;
     private int varr1 = 0;
     private int groupe;
     ArrayList<CoursAffichage> listee;
-    int midprof;
+    int mid;
 
-    public Recapprof(ArrayList<CoursAffichage> liste,int idprof) {
-        midprof=idprof;
+    public Recapprof(ArrayList<CoursAffichage> liste) {
+        mid=0;
         Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int hauteur = (int) tailleEcran.getHeight();
         int largeur = (int) tailleEcran.getWidth();
@@ -58,22 +56,25 @@ public class Recapprof extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         buildPanel();
-        
-buildcours(listee);
+        buildcours(listee);
+
         for (int i = 0; i < 80; i++) {
             add(tabpanel[i]);
         }
-     
+
         setVisible(true);
     }
 
+    /**
+         * construit le panel
+    */
     private void buildPanel() {
         JFrame frame = new JFrame();
         JLabel txt = new JLabel("COURS");
         JLabel txt1 = new JLabel("DATE");
         JLabel txt2 = new JLabel("GROUPE");
         JLabel txt3 = new JLabel("SALLE");
-        
+
         /* for (int i = 0; i < 100; i++) {
          if (i < 52) {
          String nom;
@@ -83,7 +84,6 @@ buildcours(listee);
          }
          espace[i] = new JLabel(" ");
          }*/
-       
         for (int i = 0; i < 80; i++) {
 
             tabpanel[i] = new JPanel();
@@ -105,24 +105,15 @@ buildcours(listee);
             }
            
         }
-        quit=new JButton("Retour");
-        quit.addActionListener(new quitter());
-        tabpanel[4].add(quit);
         
         setVisible(true);
 
         frame.setVisible(true);
     }
-
-    /*private void buildcours(ArrayList<CoursAffichage> liste) {
-        
-     for(int i=0;i<liste.size();i++)
-     {
-     afficours(liste.get(i).getHD(), liste.get(i).getDate(),liste.get(i).getNom(),liste.get(i).getProf(),liste.get(i).getSalle(),liste.get(i).getCapacite(),liste.get(i).getSite(),liste.get(i).getGroupetab());
-     }
- 
-     }*/
     
+    /**
+         * remplis les cours
+    */
     private void buildcours(ArrayList<CoursAffichage> liste) {
      
      for(int i=0;i<liste.size();i++)
@@ -132,13 +123,15 @@ buildcours(listee);
  
  }
     
+    /**
+         * affiche les cours
+    */
    private void afficours(String HD, String Date, String cours, ArrayList<String> nomprof, ArrayList<String> salle, int capacite,String site,ArrayList<String> nomgrp,int i) {
         JLabel gcours= new JLabel(cours);
         JLabel gdate= new JLabel(Date+" "+HD);
         JLabel ggroupe= new JLabel(nomgrp.get(i));
         JLabel gsalle= new JLabel(salle.get(i));
-       if(i<80)
-       {
+       
        tabpanel[12+4*i].add(gcours);
        tabpanel[12+4*i].setBackground(new Color(0,240,0));
        
@@ -150,10 +143,13 @@ buildcours(listee);
         tabpanel[15+4*i].setBackground(new Color(0,240,0));
        //tabpanel[15+4*i].add(gcours);
 
-       }
+       
     }
 
-   private class quitter implements ActionListener {
+/**
+         * monte d'une semaine
+    */
+private class Grand implements ActionListener {
 
         /**
          * The actionPerformed method executes when the user clicks on the
@@ -163,11 +159,59 @@ buildcours(listee);
          */
         public void actionPerformed(ActionEvent e) {
 
-            Controlleuredt controle = new Controlleuredt();
-            controle.msg(midprof);
-            controle.lanceprof();
-            //dispose();
+           //emaineg=semaineg+1;
+            //tabcust.add(new Customer("huh", "ji"));
+           
+            Calendar calendar = new GregorianCalendar();
+            Date Time = new Date();
+            calendar.setTime(Time);
+            System.out.println(Time);
+            int wk=calendar.get(Calendar.WEEK_OF_YEAR);
+           Controlleuredt controle=new Controlleuredt(wk);
+           //controle.setSemaine(valsemaine+1);
+           controle.msg(mid);
+           controle.lanceclasse();
+                   dispose();
+           //System.out.println("semaine"+controle.getSemaine());
+           //CoursAffichage courrr=new CoursAffichage();
+          // listee=courrr.affichageetudiant(1, valsemaine, listesalle, listeutilisateur, listeseance, listegroupe, listeprof, listecours, listeetudiant, listessalles, listesite);
+            //new ProjetJava();
         }
-    }
 
+    }
+        
+/**
+         * descend d'une semaine
+    */
+private class Petit implements ActionListener {
+
+        /**
+         * The actionPerformed method executes when the user clicks on the
+         * Calculate button.
+         *
+         * @param e The event object.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            //emaineg=semaineg+1;
+            //tabcust.add(new Customer("huh", "ji"));
+            
+            Calendar calendar = new GregorianCalendar();
+            Date Time = new Date();
+            calendar.setTime(Time);
+            System.out.println(Time);
+            int wk=calendar.get(Calendar.WEEK_OF_YEAR);
+            Controlleuredt controle = new Controlleuredt(wk);
+            //controle.setSemaine(valsemaine-1);
+            controle.msg(mid);
+            controle.lanceclasse();
+
+            dispose();
+            //System.out.println("semaine"+controle.getSemaine());
+            //CoursAffichage courrr=new CoursAffichage();
+            // listee=courrr.affichageetudiant(1, valsemaine, listesalle, listeutilisateur, listeseance, listegroupe, listeprof, listecours, listeetudiant, listessalles, listesite);
+            //new ProjetJava();
+        }
+
+    }
 }

@@ -21,6 +21,12 @@ public class Seance_enseignantsDAO extends DAO<Seance_enseignants> {
         super();
     }
     
+    /**
+         * met tout les enseignant de la db dans une arraylist
+         * 
+         * @param list, arraylist vide
+         * @return une arraylist d'enseignant
+    */
     public void chargement(ArrayList<Seance_enseignants> list)
     {
 

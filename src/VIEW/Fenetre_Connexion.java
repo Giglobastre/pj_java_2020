@@ -73,7 +73,10 @@ public Fenetre_Connexion(Connexion co) {
 
     }
 
-    //first window (connexion window)
+    /**
+         * Construit l'interface en ajoutant les element au panel
+         * @return Jpanel avec tout les elements dessus
+    */
     private JPanel buildPanelInterface1() {
 
         welcome = new JLabel("welcome !");
@@ -154,6 +157,9 @@ public Fenetre_Connexion(Connexion co) {
 
     }
     
+    /**
+         * button listener pour se connecter a l'interface correspondante
+    */
     private class connectButtonListener implements ActionListener
     {
         @Override
@@ -170,18 +176,18 @@ public Fenetre_Connexion(Connexion co) {
                 if(m_co_db.getType()==1){//si admin
                     Fenetre_Admin fad=new Fenetre_Admin();
                 }else if(m_co_db.getType()==2){//pedagogie
-                    Controlleuredt con=new Controlleuredt();
+                    Controlleuredt con=new Controlleuredt(wk);
                     int id11=m_co_db.getidco(ID.getText());
                     con.msg(id11);
                     con.lanceprof();
                 }else if(m_co_db.getType()==3){//enseignant
-                    Controlleuredt con=new Controlleuredt();
+                    Controlleuredt con=new Controlleuredt(wk);
                     int id11=m_co_db.getidco(ID.getText());
                     con.msg(id11);
                     con.lanceprof();
                 }else if(m_co_db.getType()==4){//etudiant
-                    Controlleuredt con=new Controlleuredt();
-                    int id11=m_co_db.getidcoeleve(ID.getText());
+                    Controlleuredt con=new Controlleuredt(wk);
+                    int id11=m_co_db.getidco(ID.getText());
                     con.msg(id11);
                     con.lanceetudiant();
                 }
@@ -195,6 +201,10 @@ public Fenetre_Connexion(Connexion co) {
             }
         }
     }
+    
+    /**
+         * button listener generant un popup pour fermer la programme
+    */
     private class close_function implements ActionListener
     {
          @Override

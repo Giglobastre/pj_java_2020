@@ -38,6 +38,12 @@ public class CoursDAO extends DAO<Cours> {
     return cours;
   }
     
+    /**
+         * met tout les cours de la db dans une arraylist
+         * 
+         * @param list, arraylist vide
+         * @return une arraylist de cours
+    */
     public void chargement(ArrayList<Cours> list)
     {
 
