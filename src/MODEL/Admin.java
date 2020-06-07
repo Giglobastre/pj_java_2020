@@ -23,10 +23,10 @@ import java.util.ArrayList;
 public class Admin {
 
     protected Connection connect = null;
-    //private final Statement stmt;
-    //private ResultSet rset;
-    //private ResultSetMetaData rsetMeta;
 
+    /**
+         * constructor, connect to db
+    */
     public Admin() {
         try {
             try {
@@ -44,7 +44,14 @@ public class Admin {
             System.out.println(err.getMessage());
         }
     }
-
+    /**
+         * enleve un groupe / enseignant d'une seance
+         *
+         * @param bol, defini si c'est pour enlever le groupe ou l'enseignant
+         * @param idseance, id de la seance
+         * @param id, id de l'enseignant
+         * @return int qui determine la raison de l'erreur ou si ca a marché
+    */
     public int enlevergrpensei(boolean bol, int idseance, int id) {
         try {
             int i = 0;
@@ -99,7 +106,13 @@ public class Admin {
         }
         return 2;
     }
-
+    
+    /**
+         * valide une seance
+         *
+         * @param idseance, id de la seance a valider
+         * @return int qui determine la raison de l'erreur ou si ca a marché
+    */
     public int validerseance(int idseance) {
         try {
             int i = 0;
@@ -123,6 +136,12 @@ public class Admin {
         return 1;
     }
 
+    /**
+         * annule une seance
+         *
+         * @param idseance, id de la seance a annuler
+         * @return int qui determine la raison de l'erreur ou si ca a marché
+    */
     public int annulerseance(int idseance) {
         try {
             int i = 0;
@@ -146,6 +165,13 @@ public class Admin {
         return 1;
     }
 
+    /**
+         * ajouter un groupe a une seance
+         *
+         * @param idseance, id de la seance a laquelle on veu ajouter le cours
+         * @param idgroupe, id du groupe  affecter la seance
+         * @return int qui determine la raison de l'erreur ou si ca a marché
+    */
     public int ajoutergrp(int idseance, int idgroupe) {
         String date = "";
         String hd = "";
@@ -247,7 +273,14 @@ public class Admin {
         }
         return 4;
     }
-
+    
+    /**
+         * valide un enseignant 
+         *
+         * @param idseance, id de la seance a laquelle on veut ajouter l'enseignant
+         * @param idprof, id de l'enseignant a ajouter
+         * @return int qui determine la raison de l'erreur ou si ca a marché
+    */
     public int ajouterprof(int idseance, int idprof) {
         String date = "";
         String hd = "";
@@ -349,6 +382,19 @@ public class Admin {
         return 4;
     }
 
+    /**
+         * ajoute une seance a l'edt
+         *
+         * @param date, date de la seance
+         * @param hd, heure de debut de la seance
+         * @param etat, valider/annulée
+         * @param idcours, l'id du cours auquel est liée a la seance
+         * @param idtype, magistral, td,..
+         * @param idprof, arraylist des professeurs participant a la seance
+         * @param idgroupe, arraylist des groupes participant a la seance
+         * @param idsalle, arraylist des.de la salle dans laquelle se deroule le cours
+         * @return int qui determine la raison de l'erreur ou si ca a marché
+    */
     public int ajoutseeance(String date, String hd, int etat, int idcours, int idtype, ArrayList<Integer> idprof, ArrayList<Integer> idgroupe, ArrayList<Integer> idsalle) {
         if ((verifarrayidprof(idprof) == true) && (verifarrayidgrp(idgroupe) == true) && (verifarrayidsalle(idsalle) == true)) {
             try {
@@ -440,6 +486,13 @@ public class Admin {
         return 20;
     }
     
+    /**
+         * ajouter une salle a une seance
+         *
+         * @param idseance, id de la seance a laquelle on affecte une salle
+         * @param idsalle, id de la salle 
+         * @return int qui determine la raison de l'erreur ou si ca a marché
+    */
     public int ajoutesalle(int idseance, int idsalle) {
         String date = "";
         String hd = "";
@@ -542,6 +595,14 @@ public class Admin {
         return 4;
     }
     
+    /**
+         * deplace une seance dans l'edt
+         *
+         * @param idseance, id de la seance a deplacer
+         * @param hd, nouvelle heure de debut
+         * @param date, nouvelle date de la seance 
+         * @return int qui determine la raison de l'erreur ou si ca a marché
+    */
     public int deplacerceance(String date, String hd, int idseance) {
         try {
             int i = 0;
@@ -688,6 +749,13 @@ public class Admin {
     
     // -------------------------------------------------------------------------------------------
     
+    /**
+         * verifie la capacité de la salle par rapport au nb de personne dans le groupe
+         *
+         * @param idsallee, arraylist des salles pour la seance
+         * @param idgrp,id des groupes dans la seance
+         * @return boolean pour definir si la salle peut ou non acceuillir
+    */
     public boolean testcapacite0(ArrayList<Integer> idgrp, ArrayList<Integer> idsalle) {
         try {
             int cap = 0;
@@ -733,6 +801,14 @@ public class Admin {
         return false;
     }
 
+    /**
+         * verifie les disponibilités des enseignants participant a la seance avant de l'affecter
+         *
+         * @param idprof, enseignant affecté au cours
+         * @param date, date a laquelle on veut verifier la disponibilité
+         * @param hd, heure de debut du cours ou veut verifier la disponibilté de l'enseignant
+         * @return boolean si le prof et disponible ou non
+    */
     public boolean testdispoprof(int idprof, String date, String hd) {
         try {
 
@@ -760,6 +836,14 @@ public class Admin {
         return true;
     }
     
+    /**
+         * verifie la disponibilité d'un groupe avant de l'affecter a une seance
+         *
+         * @param idgroupe, id du groupe a affecté
+         * @param date, date a laquelle on veut affecter
+         * @param hd, heure de debut du cours
+         * @return boolean si le groupe est disponible
+    */
     public boolean testdispogrp(int idgroupe, String date, String hd) {
         try {
 
@@ -787,6 +871,12 @@ public class Admin {
         return true;
     }
     
+    /**
+         * ajouter un groupe aune seance
+         *
+         * @param idseance, id de la seance a laquelle on affecte le groupe
+         * @param idgroupe, id du groupe
+    */
     public void ajoutergrp0(int idseance, int idgroupe) {
         String date = "";
         String hd = "";
@@ -889,6 +979,14 @@ public class Admin {
         }
     }
      
+    /**
+         * verifie la disponibilité d'une salle
+         * 
+         * @param idsalle, id de la salle a affecter
+         * @param date, date a laquelle on veut affecter
+         * @param hd, heure de debut du cours
+         * @return boolean si la salle est disponible ou non
+    */
     public boolean disposalle(int idsalle, String date, String hd) {
         try {
             PreparedStatement stmt = connect.prepareStatement("SELECT * FROM seance_salle WHERE ID_SALLE=" + idsalle);
@@ -914,6 +1012,12 @@ public class Admin {
         return true;
     }
     
+    /**
+         * verifie si le groupe existe
+         * 
+         * @param idgrp, arraylist des id de groupe a verifier
+         * @return boolean si le gorupe existe ou non
+    */
     public boolean verifarrayidgrp(ArrayList<Integer> idgrp) {
         int test = 0;
 
@@ -939,6 +1043,12 @@ public class Admin {
         return true;
     }
     
+    /**
+         * verifie si l'enseignant existe
+         * 
+         * @param idprof, array des enseignants a verifier
+         * @return boolean si l'enseigannt existeou non
+    */
     public boolean verifarrayidprof(ArrayList<Integer> idprof) {
         int test = 0;
 
@@ -964,6 +1074,12 @@ public class Admin {
         return true;
     }
     
+    /**
+         * verifie si une salle existe
+         * 
+         * @param idsalle, array des salles a verifier
+         * @return boolean qui definit si la salle est libre ou non
+    */
     public boolean verifarrayidsalle(ArrayList<Integer> idsalle) {
         int test = 0;
 
@@ -989,6 +1105,11 @@ public class Admin {
         return true;
     }
     
+    /**
+         * verifie le dernier id inséré
+         * 
+         * @return nombre, l'id du dernier id inséré
+    */
     public int chercheid() {
         int nombre = 0;
         try {
@@ -999,8 +1120,6 @@ public class Admin {
 
                 if(rs11.getInt("ID")>nombre)
                     nombre=rs11.getInt("ID");
-
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
